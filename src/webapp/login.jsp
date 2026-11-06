@@ -19,15 +19,16 @@
                     <label for="password" class="form-label">Contrase&ntilde;a</label>
                     <input type="password" class="form-control" id="password" placeholder="Tu contrase&ntilde;a" required>
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember">
-                    <label class="form-check-label" for="remember">Recordarme</label>
+                <div class="mb-3 d-flex align-items-center gap-2">
+                  <span class="text-secondary">&iquest;No tienes cuenta?</span>
+                  <a href="registro.jsp" class="btn btn-dark btn-sm">Registrate</a>
+                </div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Entrar</button>
             </form>
         </div>
     </div>
 
-    <script src="https://jsdelivr.net"></script>
+
 </body>
 </html>

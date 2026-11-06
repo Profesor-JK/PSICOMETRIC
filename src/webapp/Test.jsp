@@ -23,33 +23,67 @@
     </ul>
   </div>
 </nav>
-<!-- Cartas de test--!>
-    <div class="card card-translucent" style="width: 18rem;">
-        <div class="card-header">
-            Tests Psicometricos
-        </div>
-        <div class="card-body">
-            <h4 class="card-title">Test Terman-Merril </h4>
-            <p class="card-text">Eval&uacute;a el coeficiente intelectual y la capacidad de adaptaci&oacute;n en puestos administrativos, de supervisi&oacute;n y gerencia.</p>
-            <a href="#" class="btn-solid theme-primary">Ir a test</a>
-        </div>
-        <div class="card-footer fg-2">
-            2 days ago
-        </div>
-</div>
-<br><br>
+<br>
 
-    <div class="card card-translucent" style="width: 18rem;">
-        <div class="card-header">
-            Tests Psicometricos
+<!-- Contenedor principal que agrupa las cartas -->
+<div class="row g-4 p-3">
+
+    <!-- Primera Carta (Terman-Merril) -->
+    <div class="col-auto">
+        <div class="card theme-accent" style="width: 18rem;">
+            <div class="card-header">
+                Evaluaci&oacuten de Inteligencia y Capacidad Cognitiva (CI)
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Test Terman-Merril </h4>
+                <p class="card-text">Eval&uacute;a el coeficiente intelectual y la capacidad de adaptaci&oacute;n en puestos administrativos, de supervisi&oacute;n y gerencia.</p>
+                <a href="#" class="btn-solid theme-primary">Ir a test</a>
+            </div>
+            <div class="card-footer text-muted">
+                2 days ago
+            </div>
         </div>
-        <div class="card-body">
-            <h4 class="card-title">Test de Matrices Progresivas de Raven</h4>
-            <p class="card-text">Mide la inteligencia fluida y la capacidad de razonamiento anal&aacutegico sin carga cultural.</p>
-            <a href="#" class="btn-solid theme-primary">Ir a test</a>
+    </div>
+
+    <!-- Segunda Carta (Raven) -->
+    <div class="col-auto">
+        <div class="card theme-accent" style="width: 18rem;">
+            <div class="card-header">
+                Evaluaci&oacuten de Inteligencia y Capacidad Cognitiva (CI)
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Test de Matrices Progresivas de Raven</h4>
+                <p class="card-text">Mide la inteligencia fluida y la capacidad de razonamiento anal&aacutegico sin carga cultural.</p>
+                <a href="#" class="btn-solid theme-primary">Ir a test</a>
+            </div>
+            <div class="card-footer text-muted">
+                2 days ago
+            </div>
         </div>
-        <div class="card-footer fg-2">
-            2 days ago
+    </div>
+
+     <!-- Tercera Carta (Moss) --!>
+         <div class="col-auto">
+             <div class="card theme-primary" style="width: 18rem;">
+                 <div class="card-header">
+                    Aptitudes, Habilidades y Perfil Laboral
+                 </div>
+                 <div class="card-body">
+                     <h4 class="card-title">Test de Moss</h4>
+                     <p class="card-text">Mide la adaptabilidad social, capacidad de supervisi&oacuten y habilidades de liderazgo en contextos gerenciales.</p>
+                     <a href="#" class="btn-solid theme-primary">Ir a test</a>
+                 </div>
+                 <div class="card-footer fg-2">
+                     2 days ago
+                 </div>
+             </div>
+         </div>
+
+
+
+    </div>
+
  </div>
+   <script src="https://jsdelivr.net"></script>
 </body>
 </html>

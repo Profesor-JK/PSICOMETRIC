@@ -6,12 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="src" />
+        <module name="PSICOMETRIC" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="src" target="26" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="PSICOMETRIC" options="-parameters" />
       <module name="src" options="-parameters" />
     </option>
   </component>

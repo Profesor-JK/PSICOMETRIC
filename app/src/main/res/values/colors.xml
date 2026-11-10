@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Negro">#FF000000</color>
+    <color name="Blanco">#FFFFFFFF</color>
+    <color name="BTAzul">#3772B8</color>
+    <color name="BTVerde">#229B22</color>
+    <color name="BTNaranja">#FF7002</color>
+    <color name="FDAzul">#A366D0E2</color>
+    <color name="FDVerde">#82FF82</color>
+    <color name="TXTRojo">#FF0000</color>
+</resources>

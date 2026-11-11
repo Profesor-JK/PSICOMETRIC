@@ -1,5 +1,0 @@
-org\romero\model\Paciente.class
-org\romero\PsicometricApplication.class
-org\romero\dao\PacienteRepository.class
-org\romero\dao\SERVLET.class
-org\romero\rest\PacienteController.class

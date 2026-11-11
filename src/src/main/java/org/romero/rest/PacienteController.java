@@ -1,6 +1,6 @@
 package org.romero.rest;
 
-import org.romero.DAO.PacienteRepository;
+import org.romero.dao.PacienteRepository;
 import org.romero.model.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

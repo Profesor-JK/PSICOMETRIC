@@ -1,4 +1,4 @@
-package org.romero.DAO;
+package org.romero.dao;
 
 import org.romero.model.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;

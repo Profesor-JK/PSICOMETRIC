@@ -1,0 +1,23 @@
+package org.romero;
+
+import org.romero.dao.PacienteRepository;
+import org.romero.model.Paciente;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
+import java.util.List;
+
+@Controller
+public class WebController {
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @GetMapping({"/", "/prueba"})
+    public String mostrarPacientesWeb(Model model){
+        List<Paciente> lista= pacienteRepository.findAll();
+        model.addAttribute("pacientes", lista);
+        System.out.println("Entrando");
+        return "listaPacientes";
+    }
+}

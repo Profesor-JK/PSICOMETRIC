@@ -3,6 +3,15 @@
 
 drop database if exists psicometric;
 create database psicometric;
+use psicometric;
+CREATE TABLE `tutor` (
+                         `idtutor` int NOT NULL AUTO_INCREMENT,
+                         `Nombretut` varchar(50) NOT NULL,
+                         `Apellidostut` varchar(60) NOT NULL,
+                         `Contratut` varchar(30) NOT NULL,
+                         `Fechanactutor` date NOT NULL,
+                         PRIMARY KEY (`idtutor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE `psicometric`.`paciente` (
                                           `idpaciente` INT NOT NULL AUTO_INCREMENT,
                                           `Nombrepac` VARCHAR(45) NOT NULL,
@@ -16,7 +25,7 @@ CREATE TABLE `consulta` (
                             `Cedula` smallint NOT NULL,
                             `idpaciente` int DEFAULT NULL,
                             `idtutor` int DEFAULT NULL,
-                            `consultacol` varchar(45) DEFAULT NULL,
+                            `Fechaconsulta` DATETIME DEFAULT NULL,
                             PRIMARY KEY (`idconsulta`),
                             KEY `idpaciente_idx` (`idpaciente`),
                             KEY `idtutor_idx` (`idtutor`),
@@ -31,12 +40,4 @@ CREATE TABLE `psicologo` (
                              `Generopsic` varchar(20) NOT NULL,
                              `Contrapsic` varchar(30) NOT NULL,
                              PRIMARY KEY (`cedula`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-CREATE TABLE `tutor` (
-                         `idtutor` int NOT NULL AUTO_INCREMENT,
-                         `Nombretut` varchar(50) NOT NULL,
-                         `Apellidostut` varchar(60) NOT NULL,
-                         `Contratut` varchar(30) NOT NULL,
-                         `Fechanactutor` date NOT NULL,
-                         PRIMARY KEY (`idtutor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

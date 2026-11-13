@@ -9,7 +9,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/pacientes") // Esta es la ruta que usarás en Android
+@RequestMapping("/api/pacientes")
 public class PacienteController {
 
     @Autowired
@@ -29,4 +29,5 @@ public class PacienteController {
     public Paciente crearPaciente(@RequestBody Paciente paciente) {
         return pacienteRepository.save(paciente);
     }
+
 }

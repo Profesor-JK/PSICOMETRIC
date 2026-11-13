@@ -16,7 +16,6 @@
 
     <h1>Lista de Pacientes (Desde JSP)</h1>
 
-    <!-- Aquí recorremos la lista que enviamos desde el Controlador -->
     <c:forEach var="paciente" items="${pacientes}">
         <div class="card">
             <div class="nombre">${paciente.nombrePac} ${paciente.apellidosPac}</div>

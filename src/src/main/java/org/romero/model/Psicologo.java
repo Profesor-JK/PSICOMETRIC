@@ -11,22 +11,31 @@ public class Psicologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cedula", nullable = false, length = 10)
-    private Integer idPsicologo;
+    private Integer cedula;
 
-    @Column(name = "Nombrepsc", nullable = false, length = 45)
+    @Column(name = "Nombrepsic", nullable = false, length = 45)
     private String Nombre;
 
-    @Column(name = "Apellidospsc", nullable = false, length = 50)
+    @Column(name = "Apellidospsic", nullable = false, length = 50)
     private String Apellidospsic;
 
-    @Column(name = "Fechanacpsc", nullable = false)
+    @Column(name = "Fechanacpsic", nullable = false)
     private java.sql.Date Fechanacpsic;
 
-    @Column(name = "generopsc", nullable = false, length = 20)
+    @Column(name = "generopsic", nullable = false, length = 20)
     private String Generopsic;
 
-    @Column(name = "contrapsc", nullable = false, length = 30)
+    @Column(name = "contrapsic", nullable = false, length = 30)
     private String Contrapsic;
+
+    @Column(name = "Titulo", nullable = false, length = 30)
+    private String Titulo;
+
+    @Column(name = "Escuela", nullable = false, length = 50)
+    private String Escuela;
+
+    @Column(name ="correopsic", nullable = false, length = 50)
+    private String correopsic;
 
     public String getApellidospsic() {
         return Apellidospsic;
@@ -36,12 +45,12 @@ public class Psicologo {
         Apellidospsic = apellidospsic;
     }
 
-    public Integer getIdPsicologo() {
-        return idPsicologo;
+    public Integer getCedula() {
+        return cedula;
     }
 
-    public void setIdPsicologo(Integer idPsicologo) {
-        this.idPsicologo = idPsicologo;
+    public void setCedula(Integer cedula) {
+        this.cedula = cedula;
     }
 
     public String getNombre() {
@@ -74,5 +83,21 @@ public class Psicologo {
 
     public void setContrapsic(String contrapsic) {
         Contrapsic = contrapsic;
+    }
+
+    public String getTitulo() {return Titulo;}
+
+    public void setTitulo(String titulo) {Titulo = titulo;}
+
+    public String getEscuela() {return Escuela;}
+
+    public void setEscuela(String escuela) {Escuela = escuela;}
+
+    public String getCorropsic() {
+        return correopsic;
+    }
+
+    public void setCorropsic(String corropsic) {
+        this.correopsic = corropsic;
     }
 }

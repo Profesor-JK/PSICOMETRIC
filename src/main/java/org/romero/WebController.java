@@ -10,14 +10,39 @@ import java.util.List;
 
 @Controller
 public class WebController {
+
     @Autowired
     private PacienteRepository pacienteRepository;
 
     @GetMapping({"/", "/prueba"})
-    public String mostrarPacientesWeb(Model model){
-        List<Paciente> lista= pacienteRepository.findAll();
+    public String mostrarInicio(Model model) {
+        List<Paciente> lista = pacienteRepository.findAll();
         model.addAttribute("pacientes", lista);
-        System.out.println("Entrando");
-        return "listaPacientes";
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String mostrarLogin() {
+        return "login";
+    }
+
+    @GetMapping("/registro")
+    public String mostrarRegistro() {
+        return "registro";
+    }
+
+    @GetMapping("/test")
+    public String mostrarTest() {
+        return "Test";
+    }
+
+    @GetMapping("/info")
+    public String mostrarInfo() {
+        return "info";
+    }
+
+    @GetMapping("/directorio")
+    public String mostrarDirectorio() {
+        return "directorio";
     }
 }

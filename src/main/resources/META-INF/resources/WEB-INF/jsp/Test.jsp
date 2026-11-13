@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
-<style>
-body {
+    <style>
+        body {
             font-family: 'Montserrat', sans-serif;
             background-color: #f8fafc;
             overflow-x: hidden;
         }
 
-        /* Animación de entrada suave */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -34,7 +35,6 @@ body {
         .delay-2 { animation-delay: 0.2s; opacity: 0; }
         .delay-3 { animation-delay: 0.3s; opacity: 0; }
 
-        /* Efecto hover en tarjetas */
         .card-hover {
             cursor: pointer;
             transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
@@ -46,7 +46,6 @@ body {
             box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
         }
 
-        /* Efecto hover en listas de usuarios */
         .user-row {
             transition: background-color 0.2s ease, transform 0.2s ease;
             border-radius: 0.75rem;
@@ -57,7 +56,6 @@ body {
             transform: translateX(4px);
         }
 
-        /* Avatares circulares */
         .avatar-circle {
             width: 44px;
             height: 44px;
@@ -70,7 +68,6 @@ body {
             flex-shrink: 0;
         }
 
-        /* Subrayado minimalista en el menú */
         .nav-minimal {
             position: relative;
             font-weight: 500;
@@ -99,7 +96,7 @@ body {
 </head>
 <body class="bg-white">
 
-<<nav class="navbar md:navbar-expand bg-1 sticky-top shadow-sm" data-bs-theme="dark">
+<nav class="navbar navbar-expand-md bg-1 sticky-top shadow-sm" data-bs-theme="dark">
    <div class="container py-1">
      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
        <i class="bi bi-brain fs-4"></i>
@@ -117,7 +114,6 @@ body {
        </div>
 
        <div class="drawer-body d-flex flex-column flex-md-row align-items-md-center justify-content-between w-100 gap-3">
-         <!-- Enlaces centrales minimalistas -->
          <ul class="nav navbar-nav mx-md-auto gap-md-3">
            <li class="nav-item">
              <a class="nav-link nav-minimal active" aria-current="page" href="/">Inicio</a>
@@ -137,13 +133,13 @@ body {
        </div>
      </dialog>
    </div>
- </nav>
+</nav>
 
-<!-- Contenedor principal que agrupa las cartas -->
-<div class="row g-4 p-3">
+<div class="container my-4">
+    <div class="row g-4 p-3">
 
-    <!-- Primera Carta (Terman-Merril) -->
-<div class="col-auto">
+        <!--primera cartita -->
+        <div class="col-auto">
             <div class="card theme-accent hover-lift card-seleccionable" style="width: 18rem;"
                  data-bs-toggle="dialog"
                  data-bs-target="#modalDetalleTest"
@@ -167,8 +163,8 @@ body {
             </div>
         </div>
 
-    <!-- Segunda Carta (Raven) -->
-<div class="col-auto">
+        <!-- segunda cartita -->
+        <div class="col-auto">
             <div class="card theme-accent hover-lift card-seleccionable" style="width: 18rem;"
                  data-bs-toggle="dialog"
                  data-bs-target="#modalDetalleTest"
@@ -192,9 +188,8 @@ body {
             </div>
         </div>
 
-
-     <!-- Tercera Carta (Moss) --!>
-<div class="col-auto">
+        <!-- tercera cartita -->
+        <div class="col-auto">
             <div class="card theme-primary hover-lift card-seleccionable" style="width: 18rem;"
                  data-bs-toggle="dialog"
                  data-bs-target="#modalDetalleTest"
@@ -221,7 +216,6 @@ body {
     </div>
 </div>
 
-
 <dialog class="dialog dialog-slide-up" id="modalDetalleTest" aria-labelledby="modalTitulo">
     <div class="dialog-header theme-subtle" id="modalHeader">
         <div>
@@ -242,9 +236,6 @@ body {
     </div>
 </dialog>
 
-
-    </div>
- </div>
 <script>
     const modal = document.getElementById('modalDetalleTest');
 

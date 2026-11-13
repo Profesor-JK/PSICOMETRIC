@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* Animación de entrada suave */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -40,7 +39,6 @@
         .delay-2 { animation-delay: 0.2s; opacity: 0; }
         .delay-3 { animation-delay: 0.3s; opacity: 0; }
 
-        /* Efecto hover en tarjetas */
         .card-hover {
             cursor: pointer;
             transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
@@ -52,7 +50,6 @@
             box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
         }
 
-        /* Efecto hover en listas de usuarios */
         .user-row {
             transition: background-color 0.2s ease, transform 0.2s ease;
             border-radius: 0.75rem;
@@ -63,7 +60,6 @@
             transform: translateX(4px);
         }
 
-        /* Avatares circulares */
         .avatar-circle {
             width: 44px;
             height: 44px;
@@ -76,7 +72,6 @@
             flex-shrink: 0;
         }
 
-        /* Subrayado minimalista en el menú */
         .nav-minimal {
             position: relative;
             font-weight: 500;

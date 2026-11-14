@@ -26,6 +26,9 @@ public class Paciente {
     @Column(name = "contrapac", nullable = false, length = 30)
     private String contraPac;
 
+    @Column(name="correopac", nullable = false, length = 50)
+    private String correoPac;
+
 
     public Integer getIdPaciente() { return idPaciente; }
     public void setIdPaciente(Integer idPaciente) { this.idPaciente = idPaciente; }
@@ -39,4 +42,6 @@ public class Paciente {
     public void setGeneroPsc(String generoPsc) { this.generoPsc = generoPsc; }
     public String getContraPac() { return contraPac; }
     public void setContraPac(String contraPac) { this.contraPac = contraPac; }
+    public String getCorreoPac() {return correoPac;}
+    public void setCorreoPac(String correoPac) {this.correoPac = correoPac;}
 }

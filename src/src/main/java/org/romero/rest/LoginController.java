@@ -19,6 +19,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credenciales) {
+
         String correo = credenciales.get("correo");
         String contrasena = credenciales.get("contrasena");
 

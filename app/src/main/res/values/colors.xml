@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Ambar">#FF8C00</color>
+    <color name="Esmeralda">#228B22</color>
+    <color name="Azul">#4169E1</color>
+    <color name="Musgo">#556B2F</color>
+    <color name="Azul_De_La_Fuerza_Aérea">#4682B4</color>
+    <color name="Pizarra">#778899</color>
+    <color name="Carbon">#333333</color>
+    <color name="Blanco">#FFFFFF</color>
+    <color name="Aero_Blue">#E0FFFF</color>
+    <color name="Blanco_Humo">#F5F5F5</color>
+    <color name="Marron_Rosaceo">#BC8F8F</color>
+    <color name="Gris">#A9A9A9</color>
+</resources>

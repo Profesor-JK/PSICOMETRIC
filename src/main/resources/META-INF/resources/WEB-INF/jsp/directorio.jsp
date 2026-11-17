@@ -1,189 +1,160 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
-        <style>
-            body {
-                font-family: 'Montserrat', sans-serif;
-                background-color: #f8fafc;
-                overflow-x: hidden;
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psicometric | Directorio de Tests</title>
 
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-            .animate-fade-up {
-                animation: fadeInUp 0.6s ease-out forwards;
-            }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-            .delay-1 { animation-delay: 0.1s; opacity: 0; }
-            .delay-2 { animation-delay: 0.2s; opacity: 0; }
-            .delay-3 { animation-delay: 0.3s; opacity: 0; }
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-            .card-hover {
-                cursor: pointer;
-                transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
-                border: 1px solid rgba(0, 0, 0, 0.06);
-            }
 
-            .card-hover:hover {
-                transform: translateY(-6px);
-                box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
-            }
-
-            .user-row {
-                transition: background-color 0.2s ease, transform 0.2s ease;
-                border-radius: 0.75rem;
-            }
-
-            .user-row:hover {
-                background-color: #f1f5f9;
-                transform: translateX(4px);
-            }
-
-            .avatar-circle {
-                width: 44px;
-                height: 44px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 600;
-                font-size: 0.95rem;
-                flex-shrink: 0;
-            }
-
-            .nav-minimal {
-                position: relative;
-                font-weight: 500;
-            }
-
-            .nav-minimal::after {
-                content: '';
-                position: absolute;
-                width: 0;
-                height: 2px;
-                bottom: 4px;
-                left: 50%;
-                background-color: currentColor;
-                transition: width 0.25s ease, left 0.25s ease;
-            }
-
-            .nav-minimal:hover::after {
-                width: 80%;
-                left: 10%;
-            }
-        </style>
+  <link rel="stylesheet" href="/styles/comun.css">
+  <link rel="stylesheet" href="/styles/estilodire.css">
 </head>
-<body class="bg-white">
 
-<!-- Barra de Navegación Corregida -->
-<nav class="navbar navbar-expand-md bg-dark sticky-top shadow-sm" data-bs-theme="dark">
-  <div class="container py-1">
-    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
+<body class="bg-white d-flex flex-column min-vh-100">
+
+<nav class="psico-nav">
+  <div class="container psico-bar">
+    <a class="psico-brand" href="/">
       <i class="bi bi-brain fs-4"></i>
       <span>Psicometric</span>
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="psico-toggler" id="psicoToggler" type="button" aria-controls="psicoMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list"></i>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-      <ul class="navbar-nav align-md-items-center gap-md-3 my-2 my-md-0">
-        <li class="nav-item">
-          <a class="nav-link nav-minimal active" aria-current="page" href="/">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-minimal" href="/directorio">Directorio de Tests</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-minimal" href="#comunidad">Psic&oacute;logos y Pacientes</a>
-        </li>
+    <div class="psico-menu" id="psicoMenu">
+      <ul class="psico-links">
+        <li><a class="psico-link" href="/">Inicio</a></li>
+        <li><a class="psico-link active" aria-current="page" href="/directorio">Directorio de Tests</a></li>
+        <li><a class="psico-link" href="/#comunidad">Psic&oacute;logos y Pacientes</a></li>
+        <li><a class="psico-link" href="/info">&iquest;Qui&eacute;nes somos?</a></li>
       </ul>
 
-      <div class="hstack gap-2 ms-md-3 mt-2 mt-md-0">
-        <a href="/login" class="btn btn-outline-light btn-sm">Iniciar Sesi&oacute;n</a>
-        <a href="/registro" class="btn btn-primary btn-sm">Crear Cuenta</a>
+      <div class="psico-actions">
+        <a href="/login" class="psico-btn psico-btn-outline">Iniciar Sesi&oacute;n</a>
+        <a href="/registro" class="psico-btn psico-btn-primary">Crear Cuenta</a>
       </div>
     </div>
   </div>
 </nav>
 
-<div class="container my-4">
-  <div class="accordion" id="accordionTests">
+<main class="flex-grow-1">
+  <div class="container my-4">
+    <div class="accordion" id="accordionTests">
 
-    <!-- CATEGORÍA 1: Laboral (Azul) -->
-    <div class="accordion-item border-primary-subtle mb-3">
-      <h2 class="accordion-header" id="headingUno">
-        <button class="accordion-button fw-bold bg-primary-subtle text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUno" aria-expanded="true" aria-controls="collapseUno">
-          Aptitudes, Habilidades y Perfil Laboral
-        </button>
-      </h2>
-      <div id="collapseUno" class="accordion-collapse collapse show" aria-labelledby="headingUno" data-bs-parent="#accordionTests">
-        <div class="accordion-body p-0">
-          <div class="list-group list-group-flush">
-            <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-              <span>Test de Moss</span>
-              <span class="badge bg-primary text-white rounded-pill">15 min</span>
-            </a>
-            <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-              <span>XXXX-XXXX-XXXX</span>
-              <span class="badge bg-primary text-white rounded-pill">20 min</span>
-            </a>
-            <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-              <span>XXXX-XXXX-XXXX</span>
-              <span class="badge bg-primary text-white rounded-pill">10 min</span>
-            </a>
+      <!-- 1 -->
+      <div class="accordion-item border-primary-subtle mb-3">
+        <h2 class="accordion-header" id="headingUno">
+          <button class="accordion-button fw-bold bg-primary-subtle text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUno" aria-expanded="true" aria-controls="collapseUno">
+            Prueba
+          </button>
+        </h2>
+        <div id="collapseUno" class="accordion-collapse collapse show" aria-labelledby="headingUno" data-bs-parent="#accordionTests">
+          <div class="accordion-body p-0">
+            <div class="list-group list-group-flush">
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>Test de Moss</span>
+                <span class="badge bg-primary text-white rounded-pill">15 min</span>
+              </a>
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>XXXX-XXXX-XXXX</span>
+                <span class="badge bg-primary text-white rounded-pill">20 min</span>
+              </a>
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>XXXX-XXXX-XXXX</span>
+                <span class="badge bg-primary text-white rounded-pill">10 min</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- CATEGORÍA 2: Inteligencia y Capacidad Cognitiva (Morado) -->
-    <div class="accordion-item" style="border-color: #e8dbf8;">
-      <h2 class="accordion-header" id="headingDos">
-        <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos" style="--bs-accordion-active-bg: #f3ebfd; --bs-accordion-active-color: #6f42c1; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25);">
-          Evaluación de Inteligencia y Capacidad Cognitiva (CI)
-        </button>
-      </h2>
-      <div id="collapseDos" class="accordion-collapse collapse" aria-labelledby="headingDos" data-bs-parent="#accordionTests">
-        <div class="accordion-body p-0">
-          <div class="list-group list-group-flush">
-            <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-              <span>Test de Terman-Merril</span>
-              <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">25 min</span>
-            </a>
-            <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-              <span>Test de Matrices Progresivas de Raven</span>
-              <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">15 min</span>
-            </a>
-            <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-              <span>XXXX-XXXX-XXXX</span>
-              <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">30 min</span>
-            </a>
+      <!-- 2 -->
+      <div class="accordion-item mb-3" style="border-color: #e8dbf8;">
+        <h2 class="accordion-header" id="headingDos">
+          <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos" style="--bs-accordion-active-bg: #f3ebfd; --bs-accordion-active-color: #6f42c1; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25);">
+            Prueba
+          </button>
+        </h2>
+        <div id="collapseDos" class="accordion-collapse collapse" aria-labelledby="headingDos" data-bs-parent="#accordionTests">
+          <div class="accordion-body p-0">
+            <div class="list-group list-group-flush">
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>Test de Terman-Merril</span>
+                <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">25 min</span>
+              </a>
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>Test de Matrices Progresivas de Raven</span>
+                <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">15 min</span>
+              </a>
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>XXXX-XXXX-XXXX</span>
+                <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">30 min</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
+      <!-- 3 -->
+      <div class="accordion-item" style="border-color: #f8d7da;">
+        <h2 class="accordion-header" id="headingTres">
+          <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTres" aria-expanded="false" aria-controls="collapseTres" style="--bs-accordion-active-bg: #fdecea; --bs-accordion-active-color: #dc3545; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);">
+            Prueba
+          </button>
+        </h2>
+        <div id="collapseTres" class="accordion-collapse collapse" aria-labelledby="headingTres" data-bs-parent="#accordionTests">
+          <div class="accordion-body p-0">
+            <div class="list-group list-group-flush">
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>Test de Terman-Merril</span>
+                <span class="badge text-white rounded-pill" style="background-color: #FF0000;">25 min</span>
+              </a>
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>Test de Matrices Progresivas de Raven</span>
+                <span class="badge text-white rounded-pill" style="background-color: #FF0000;">15 min</span>
+              </a>
+              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>XXXX-XXXX-XXXX</span>
+                <span class="badge text-white rounded-pill" style="background-color: #FF0000;">30 min</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
+</main>
+
+<footer class="bg-white border-top py-4">
+  <div class="container text-muted small">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <span>&copy; 2026 Psicometric. Todos los derechos reservados.</span>
+      <div class="hstack gap-3">
+        <a href="/directorio" class="text-muted text-decoration-none">Directorio</a>
+        <a href="/info" class="text-muted text-decoration-none">&iquest;Qui&eacute;nes somos?</a>
+      </div>
+    </div>
+    <p class="mb-0 mt-3 text-center text-md-start">
+      Esta plataforma es &uacute;nicamente una herramienta de apoyo; la evaluaci&oacute;n y las decisiones profesionales son responsabilidad de la psic&oacute;loga a cargo.
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="/static/js/navbar.js"></script>
 
 </body>
 </html>

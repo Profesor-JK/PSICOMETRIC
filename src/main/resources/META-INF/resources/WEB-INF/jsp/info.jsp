@@ -1,128 +1,191 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+    <title>¿Quiénes somos? | Psicometric</title>
+
+    <link rel="icon" type="image/png" href="/img/icon.png?v=2">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f8fafc;
-            overflow-x: hidden;
-        }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-up {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .delay-1 { animation-delay: 0.1s; opacity: 0; }
-        .delay-2 { animation-delay: 0.2s; opacity: 0; }
-        .delay-3 { animation-delay: 0.3s; opacity: 0; }
-
-        .card-hover {
-            cursor: pointer;
-            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-        }
-
-        .card-hover:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
-        }
-
-        .user-row {
-            transition: background-color 0.2s ease, transform 0.2s ease;
-            border-radius: 0.75rem;
-        }
-
-        .user-row:hover {
-            background-color: #f1f5f9;
-            transform: translateX(4px);
-        }
-
-        .avatar-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.95rem;
-            flex-shrink: 0;
-        }
-
-        .nav-minimal {
-            position: relative;
-            font-weight: 500;
-        }
-
-        .nav-minimal::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 4px;
-            left: 50%;
-            background-color: currentColor;
-            transition: width 0.25s ease, left 0.25s ease;
-        }
-
-        .nav-minimal:hover::after {
-            width: 80%;
-            left: 10%;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles/comun.css">
+    <link rel="stylesheet" href="/styles/estiloinfo.css">
 </head>
-<body class="bg-white">
 
-<nav class="navbar navbar-expand-md bg-dark sticky-top shadow-sm" data-bs-theme="dark">
-  <div class="container py-1">
-    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
-      <i class="bi bi-brain fs-4"></i>
-      <span>Psicometric</span>
-    </a>
+<body class="bg-white d-flex flex-column min-vh-100">
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMinimal" aria-controls="navbarMinimal" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="psico-nav">
+    <div class="container psico-bar">
+        <a class="psico-brand" href="/">
+            <i class="bi bi-brain fs-4"></i>
+            <span>Psicometric</span>
+        </a>
 
-    <div class="collapse navbar-collapse" id="navbarMinimal">
-      <!-- Enlaces centrales minimalistas -->
-      <ul class="navbar-nav mx-auto gap-md-3 my-2 my-md-0">
-        <li class="nav-item">
-          <a class="nav-link nav-minimal active" aria-current="page" href="/">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-minimal" href="/directorio">Directorio de Tests</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-minimal" href="#comunidad">Psic&oacute;logos y Pacientes</a>
-        </li>
-      </ul>
+        <button class="psico-toggler" id="psicoToggler" type="button" aria-controls="psicoMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list"></i>
+        </button>
 
-      <div class="hstack gap-2 mt-2 mt-md-0">
-        <a href="/login" class="btn btn-outline-light btn-sm">Iniciar Sesi&oacute;n</a>
-        <a href="/registro" class="btn btn-primary btn-sm">Crear Cuenta</a>
-      </div>
+        <div class="psico-menu" id="psicoMenu">
+            <ul class="psico-links">
+                <li><a class="psico-link" href="/">Inicio</a></li>
+                <li><a class="psico-link" href="/directorio">Directorio de Tests</a></li>
+                <li><a class="psico-link" href="/#comunidad">Psic&oacute;logos y Pacientes</a></li>
+                <li><a class="psico-link active" aria-current="page" href="/info">&iquest;Qui&eacute;nes somos?</a></li>
+            </ul>
+
+            <div class="psico-actions">
+                <a href="/login" class="psico-btn psico-btn-outline">Iniciar Sesi&oacute;n</a>
+                <a href="/registro" class="psico-btn psico-btn-primary">Crear Cuenta</a>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
+
+<main class="flex-grow-1">
+
+    <section class="bg-dark text-white py-5">
+        <div class="container text-center py-3">
+            <h1 class="fw-bold display-5 animate-fade-up">¿Quiénes somos?</h1>
+            <p class="lead text-white-50 mb-0 mx-auto animate-fade-up delay-1" style="max-width: 640px;">
+                Conoce al equipo detrás de Psicometric y de qué trata nuestro proyecto.
+            </p>
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-7 animate-fade-up delay-1">
+                <h2 class="fw-bold mb-3">Sobre el proyecto</h2>
+                <p class="text-secondary">
+                    <strong>Psicometric</strong> es una herramienta para la psicología. Permite a los
+                    psicólogos crear y aplicar sus propios tests, y a los usuarios resolverlos de forma
+                    sencilla desde cualquier dispositivo.
+                </p>
+                <p class="text-secondary mb-0">
+                    Una vez que el usuario termina un test, la plataforma muestra los resultados, para que
+                    el psicólogo pueda revisarlos y dar seguimiento a cada caso.
+                </p>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="vstack gap-3">
+                    <div class="d-flex align-items-center gap-3 animate-fade-up delay-1">
+                        <div class="icon-box bg-primary-subtle text-primary"><i class="bi bi-clipboard2-pulse"></i></div>
+                        <div>
+                            <div class="fw-semibold">Los psicólogos crean sus tests</div>
+                            <div class="small text-secondary">Diseñan y gestionan sus evaluaciones.</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 animate-fade-up delay-2">
+                        <div class="icon-box bg-success-subtle text-success"><i class="bi bi-pencil-square"></i></div>
+                        <div>
+                            <div class="fw-semibold">Los usuarios los resuelven</div>
+                            <div class="small text-secondary">Responden en línea, a su ritmo.</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 animate-fade-up delay-3">
+                        <div class="icon-box bg-warning-subtle text-warning-emphasis"><i class="bi bi-bar-chart-line"></i></div>
+                        <div>
+                            <div class="fw-semibold">Se muestran los resultados</div>
+                            <div class="small text-secondary">Al finalizar, se presentan de forma clara.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mb-5">
+        <div class="alert alert-warning d-flex align-items-start gap-3 mb-0 shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+            <div>
+                <h3 class="h6 fw-bold mb-1">Aviso importante</h3>
+                <p class="mb-0">
+                    Esta plataforma es únicamente una herramienta de apoyo; la evaluación y las decisiones
+                    profesionales son responsabilidad de la psicóloga a cargo.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold mb-1">Nuestro equipo</h2>
+                <p class="text-secondary mb-0">Integrantes del grupo <strong>5IM9</strong></p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-sm-6 col-lg-3 animate-fade-up delay-1">
+                    <div class="card card-hover h-100 text-center shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="avatar-circle bg-primary-subtle text-primary mb-3">SB</div>
+                            <h3 class="h6 fw-bold mb-1">Samuel Francisco Bueno Robles</h3>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill">5IM9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 animate-fade-up delay-2">
+                    <div class="card card-hover h-100 text-center shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="avatar-circle text-white mb-3" style="background-color: #6f42c1;">LC</div>
+                            <h3 class="h6 fw-bold mb-1">Luis Roberto Cástulo Soto</h3>
+                            <span class="badge rounded-pill" style="background-color: #f3ebfd; color: #6f42c1;">5IM9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 animate-fade-up delay-3">
+                    <div class="card card-hover h-100 text-center shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="avatar-circle bg-success-subtle text-success mb-3">ER</div>
+                            <h3 class="h6 fw-bold mb-1">Erick Aaron Romero Ovalle</h3>
+                            <span class="badge bg-success-subtle text-success rounded-pill">5IM9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 animate-fade-up delay-4">
+                    <div class="card card-hover h-100 text-center shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="avatar-circle bg-danger-subtle text-danger mb-3">AM</div>
+                            <h3 class="h6 fw-bold mb-1">Alejandro Martinez Sanabria</h3>
+                            <span class="badge bg-danger-subtle text-danger rounded-pill">5IM9</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-white border-top py-4">
+    <div class="container text-muted small">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <span>&copy; 2026 Psicometric. Todos los derechos reservados.</span>
+            <div class="hstack gap-3">
+                <a href="/directorio" class="text-muted text-decoration-none">Directorio</a>
+                <a href="/info" class="text-muted text-decoration-none">¿Quiénes somos?</a>
+            </div>
+        </div>
+        <p class="mb-0 mt-3 text-center text-md-start">
+            Esta plataforma es únicamente una herramienta de apoyo; la evaluación y las decisiones profesionales son responsabilidad de la psicóloga a cargo.
+        </p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="/static/js/navbar.js"></script>
 
 </body>
 </html>

@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Psicometric | Directorio de Tests</title>
 
+  <link rel="icon" type="image/png" href="/img/icon.png?v=2">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -49,11 +51,11 @@
 </nav>
 
 <main class="flex-grow-1">
-  <div class="container my-4">
+  <div class="container my-4 animate-fade-up">
     <div class="accordion" id="accordionTests">
 
       <!-- 1 -->
-      <div class="accordion-item border-primary-subtle mb-3">
+      <div class="accordion-item border-primary-subtle mb-3 animate-fade-up delay-1">
         <h2 class="accordion-header" id="headingUno">
           <button class="accordion-button fw-bold bg-primary-subtle text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUno" aria-expanded="true" aria-controls="collapseUno">
             Prueba
@@ -80,7 +82,7 @@
       </div>
 
       <!-- 2 -->
-      <div class="accordion-item mb-3" style="border-color: #e8dbf8;">
+      <div class="accordion-item mb-3 animate-fade-up delay-2" style="border-color: #e8dbf8;">
         <h2 class="accordion-header" id="headingDos">
           <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos" style="--bs-accordion-active-bg: #f3ebfd; --bs-accordion-active-color: #6f42c1; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25);">
             Prueba
@@ -107,7 +109,7 @@
       </div>
 
       <!-- 3 -->
-      <div class="accordion-item" style="border-color: #f8d7da;">
+      <div class="accordion-item animate-fade-up delay-3" style="border-color: #f8d7da;">
         <h2 class="accordion-header" id="headingTres">
           <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTres" aria-expanded="false" aria-controls="collapseTres" style="--bs-accordion-active-bg: #fdecea; --bs-accordion-active-color: #dc3545; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);">
             Prueba

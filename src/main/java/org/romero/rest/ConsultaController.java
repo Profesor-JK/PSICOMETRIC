@@ -24,23 +24,15 @@ public class ConsultaController {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            // 1. Convertimos el String que llega de Android a un LocalDateTime
             LocalDateTime FechaConsulta = LocalDateTime.parse(request.getFechaConsulta());
 
-            // 2. VALIDACIÓN: ¿La fecha es en el futuro?
             LocalDateTime ahora = LocalDateTime.now();
             if (FechaConsulta.isBefore(ahora)) {
                 response.put("error", "La fecha de la cita debe ser en el futuro.");
                 return ResponseEntity.badRequest().body(response);
             }
 
-            // 3. Si es válida, creamos la consulta y la guardamos
-            //Consulta nuevaConsulta = new Consulta();
-            //nuevaConsulta.setidpaciente(request.getidpaciente());
-            //nuevaConsulta.setCedula(request.getCedula());
-            //nuevaConsulta.setFechaCita(FechaConsulta);
 
-            //consultaRepository.save(nuevaConsulta);
 
             response.put("mensaje", "Cita agendada exitosamente");
             response.put("fecha", FechaConsulta.toString());

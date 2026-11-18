@@ -8,6 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" href="/img/icon.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
@@ -50,7 +51,7 @@
     <div class="row g-4 p-3">
 
         <!-- primera cartita -->
-        <div class="col-auto">
+        <div class="col-auto animate-fade-up delay-1">
             <div class="card theme-accent hover-lift card-seleccionable" style="width: 18rem;"
                  data-bs-toggle="dialog"
                  data-bs-target="#modalDetalleTest"
@@ -75,7 +76,7 @@
         </div>
 
         <!-- segunda cartita -->
-        <div class="col-auto">
+        <div class="col-auto animate-fade-up delay-2">
             <div class="card theme-accent hover-lift card-seleccionable" style="width: 18rem;"
                  data-bs-toggle="dialog"
                  data-bs-target="#modalDetalleTest"
@@ -100,7 +101,7 @@
         </div>
 
         <!-- tercera cartita -->
-        <div class="col-auto">
+        <div class="col-auto animate-fade-up delay-3">
             <div class="card theme-primary hover-lift card-seleccionable" style="width: 18rem;"
                  data-bs-toggle="dialog"
                  data-bs-target="#modalDetalleTest"

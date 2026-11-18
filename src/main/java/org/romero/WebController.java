@@ -45,4 +45,9 @@ public class WebController {
     public String mostrarDirectorio() {
         return "directorio";
     }
+    @GetMapping("/creartest")
+    public String mostrarCrearTest() {
+        return "creartest";
+    }
+
 }

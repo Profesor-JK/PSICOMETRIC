@@ -10,5 +10,4 @@ public interface ConsultaService {
     void save(Consulta consulta);
     void deleteById(Integer id);
     List<Consulta> obtenerfecha(LocalDateTime fecha);
-    // Ya no necesitas declarar "update" aquí, save() hace ambas cosas.
 }

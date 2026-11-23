@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="esPaciente" value="${pageContext.request.isUserInRole('PACIENTE')}" />
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="light">
 <head>
@@ -29,89 +32,83 @@
 
 <main class="flex-grow-1">
   <div class="container my-4 animate-fade-up">
+    <div class="mb-4">
+      <h1 class="h3 fw-bold mb-1">Directorio de tests</h1>
+      <p class="text-muted mb-0">Los tests publicados, organizados por categor&iacute;a.</p>
+    </div>
+
+    <c:if test="${empty categorias}">
+      <div class="text-center text-muted py-5">
+        <i class="bi bi-journal-x fs-1 d-block mb-2"></i>
+        <p class="mb-0">A&uacute;n no hay tests publicados. Vuelve pronto.</p>
+      </div>
+    </c:if>
+
     <div class="accordion" id="accordionTests">
+      <c:forEach var="cat" items="${categorias}" varStatus="st">
+        <c:choose>
+          <c:when test="${st.index % 3 == 0}">
+            <c:set var="colorBorde" value="var(--bs-primary-border-subtle)"/>
+            <c:set var="colorFondo" value="var(--bs-primary-bg-subtle)"/>
+            <c:set var="colorTexto" value="#052c65"/>
+            <c:set var="colorBadge" value="#0d6efd"/>
+            <c:set var="colorFoco" value="rgba(13, 110, 253, 0.25)"/>
+          </c:when>
+          <c:when test="${st.index % 3 == 1}">
+            <c:set var="colorBorde" value="#e8dbf8"/>
+            <c:set var="colorFondo" value="#f3ebfd"/>
+            <c:set var="colorTexto" value="#6f42c1"/>
+            <c:set var="colorBadge" value="#6f42c1"/>
+            <c:set var="colorFoco" value="rgba(111, 66, 193, 0.25)"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var="colorBorde" value="#f8d7da"/>
+            <c:set var="colorFondo" value="#fdecea"/>
+            <c:set var="colorTexto" value="#dc3545"/>
+            <c:set var="colorBadge" value="#dc3545"/>
+            <c:set var="colorFoco" value="rgba(220, 53, 69, 0.25)"/>
+          </c:otherwise>
+        </c:choose>
 
-      <!-- 1 -->
-      <div class="accordion-item border-primary-subtle mb-3 animate-fade-up delay-1">
-        <h2 class="accordion-header" id="headingUno">
-          <button class="accordion-button fw-bold bg-primary-subtle text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUno" aria-expanded="true" aria-controls="collapseUno">
-            Prueba
-          </button>
-        </h2>
-        <div id="collapseUno" class="accordion-collapse collapse show" aria-labelledby="headingUno" data-bs-parent="#accordionTests">
-          <div class="accordion-body p-0">
-            <div class="list-group list-group-flush">
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>Test de Moss</span>
-                <span class="badge bg-primary text-white rounded-pill">15 min</span>
-              </a>
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>XXXX-XXXX-XXXX</span>
-                <span class="badge bg-primary text-white rounded-pill">20 min</span>
-              </a>
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>XXXX-XXXX-XXXX</span>
-                <span class="badge bg-primary text-white rounded-pill">10 min</span>
-              </a>
+        <div class="accordion-item mb-3 animate-fade-up delay-${(st.index % 3) + 1}" style="border-color: ${colorBorde};">
+          <h2 class="accordion-header" id="heading${st.index}">
+            <button class="accordion-button fw-bold text-dark ${st.first ? '' : 'collapsed'}" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapse${st.index}"
+                    aria-expanded="${st.first}" aria-controls="collapse${st.index}"
+                    style="--bs-accordion-active-bg: ${colorFondo}; --bs-accordion-active-color: ${colorTexto}; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem ${colorFoco};">
+              <span class="me-2"><c:out value="${cat.nombre}"/></span>
+              <span class="badge rounded-pill text-white" style="background-color: ${colorBadge};">${cat.total}</span>
+            </button>
+          </h2>
+          <div id="collapse${st.index}" class="accordion-collapse collapse ${st.first ? 'show' : ''}"
+               aria-labelledby="heading${st.index}" data-bs-parent="#accordionTests">
+            <div class="accordion-body p-0">
+              <div class="list-group list-group-flush">
+                <c:forEach var="t" items="${cat.tests}">
+                  <c:choose>
+                    <c:when test="${esPaciente}">
+                      <a href="${ctx}/test/${t.idTest}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span><c:out value="${t.nombre}"/></span>
+                        <c:if test="${t.duracionMin gt 0}">
+                          <span class="badge text-white rounded-pill" style="background-color: ${colorBadge};">${t.duracionMin} min</span>
+                        </c:if>
+                      </a>
+                    </c:when>
+                    <c:otherwise>
+                      <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><c:out value="${t.nombre}"/></span>
+                        <c:if test="${t.duracionMin gt 0}">
+                          <span class="badge text-white rounded-pill" style="background-color: ${colorBadge};">${t.duracionMin} min</span>
+                        </c:if>
+                      </div>
+                    </c:otherwise>
+                  </c:choose>
+                </c:forEach>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- 2 -->
-      <div class="accordion-item mb-3 animate-fade-up delay-2" style="border-color: #e8dbf8;">
-        <h2 class="accordion-header" id="headingDos">
-          <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos" style="--bs-accordion-active-bg: #f3ebfd; --bs-accordion-active-color: #6f42c1; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25);">
-            Prueba
-          </button>
-        </h2>
-        <div id="collapseDos" class="accordion-collapse collapse" aria-labelledby="headingDos" data-bs-parent="#accordionTests">
-          <div class="accordion-body p-0">
-            <div class="list-group list-group-flush">
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>Test de Terman-Merril</span>
-                <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">25 min</span>
-              </a>
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>Test de Matrices Progresivas de Raven</span>
-                <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">15 min</span>
-              </a>
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>XXXX-XXXX-XXXX</span>
-                <span class="badge text-white rounded-pill" style="background-color: #6f42c1;">30 min</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3 -->
-      <div class="accordion-item animate-fade-up delay-3" style="border-color: #f8d7da;">
-        <h2 class="accordion-header" id="headingTres">
-          <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTres" aria-expanded="false" aria-controls="collapseTres" style="--bs-accordion-active-bg: #fdecea; --bs-accordion-active-color: #dc3545; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);">
-            Prueba
-          </button>
-        </h2>
-        <div id="collapseTres" class="accordion-collapse collapse" aria-labelledby="headingTres" data-bs-parent="#accordionTests">
-          <div class="accordion-body p-0">
-            <div class="list-group list-group-flush">
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>Test de Terman-Merril</span>
-                <span class="badge text-white rounded-pill" style="background-color: #FF0000;">25 min</span>
-              </a>
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>Test de Matrices Progresivas de Raven</span>
-                <span class="badge text-white rounded-pill" style="background-color: #FF0000;">15 min</span>
-              </a>
-              <a href="/test" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <span>XXXX-XXXX-XXXX</span>
-                <span class="badge text-white rounded-pill" style="background-color: #FF0000;">30 min</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      </c:forEach>
     </div>
   </div>
 </main>

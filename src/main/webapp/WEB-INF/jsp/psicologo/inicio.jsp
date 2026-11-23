@@ -38,6 +38,7 @@
                 <li><a class="psico-link active" aria-current="page" href="${ctx}/psicologo/inicio">Inicio</a></li>
                 <li><a class="psico-link" href="${ctx}/directorio">Directorio de Tests</a></li>
                 <li><a class="psico-link" href="${ctx}/creartest">Crear test</a></li>
+                <li><a class="psico-link" href="${ctx}/psicologo/respuestas">Respuestas</a></li>
                 <li><a class="psico-link" href="#comunidad">Psic&oacute;logos y Pacientes</a></li>
                 <li><a class="psico-link" href="${ctx}/info">&iquest;Qui&eacute;nes somos?</a></li>
             </ul>
@@ -65,6 +66,10 @@
                 <a href="${ctx}/creartest" class="btn-solid theme-primary px-4 py-2 d-inline-flex align-items-center gap-2">
                     <span>Crear test</span>
                     <i class="bi bi-plus-circle"></i>
+                </a>
+                <a href="${ctx}/psicologo/respuestas" class="btn-outline theme-secondary px-4 py-2 d-inline-flex align-items-center gap-2">
+                    <span>Ver respuestas de pacientes</span>
+                    <i class="bi bi-clipboard2-data"></i>
                 </a>
                 <a href="${ctx}/directorio" class="btn-outline theme-secondary px-4 py-2 d-inline-flex align-items-center gap-2">
                     <span>Explorar Directorio de Tests</span>

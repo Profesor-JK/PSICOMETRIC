@@ -39,6 +39,7 @@
                 <li><a class="psico-link active" aria-current="page" href="${ctx}/paciente/inicio">Inicio</a></li>
                 <li><a class="psico-link" href="${ctx}/directorio">Directorio de Tests</a></li>
                 <li><a class="psico-link" href="${ctx}/test">Realizar test</a></li>
+                <li><a class="psico-link" href="${ctx}/paciente/historial">Mis tests</a></li>
                 <li><a class="psico-link" href="#comunidad">Psic&oacute;logos</a></li>
                 <li><a class="psico-link" href="${ctx}/info">&iquest;Qui&eacute;nes somos?</a></li>
             </ul>
@@ -65,6 +66,10 @@
                 <a href="${ctx}/test" class="btn-solid theme-primary px-4 py-2 d-inline-flex align-items-center gap-2">
                     <span>Realizar test</span>
                     <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="${ctx}/paciente/historial" class="btn-outline theme-secondary px-4 py-2 d-inline-flex align-items-center gap-2">
+                    <span>Mis tests realizados</span>
+                    <i class="bi bi-journal-check"></i>
                 </a>
                 <a href="${ctx}/directorio" class="btn-outline theme-secondary px-4 py-2 d-inline-flex align-items-center gap-2">
                     <span>Explorar Directorio de Tests</span>

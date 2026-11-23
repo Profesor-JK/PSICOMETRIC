@@ -34,7 +34,6 @@
 
 
     <form id="formTest" method="post" action="/psicologo/tests/guardar" novalidate>
-      <input type="hidden" name="testJson" id="testJson">
 
       <div class="row g-4">
 
@@ -170,9 +169,6 @@
             <div class="d-grid gap-2">
               <button type="submit" id="btnGuardar" class="btn btn-primary btn-lg">
                 <i class="bi bi-save me-1"></i>Guardar test
-              </button>
-              <button type="button" id="btnVistaJson" class="btn btn-outline-secondary">
-                <i class="bi bi-code-slash me-1"></i>Ver datos del test (JSON)
               </button>
             </div>
 

@@ -65,6 +65,7 @@
 
     <div class="d-flex gap-2 justify-content-center flex-wrap mt-4">
       <a href="${ctx}/test" class="btn btn-primary">Ver m&aacute;s tests</a>
+      <a href="${ctx}/paciente/historial" class="btn btn-outline-primary">Mis tests realizados</a>
       <a href="${ctx}/paciente/inicio" class="btn btn-outline-secondary">Ir al inicio</a>
     </div>
   </div>

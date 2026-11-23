@@ -25,8 +25,4 @@ public class Publicocontroller {
         return "info";
     }
 
-    @GetMapping("/directorio")
-    public String mostrarDirectorio() {
-        return "directorio";
-    }
 }

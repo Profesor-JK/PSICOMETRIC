@@ -23,10 +23,12 @@
 
                 <c:if test="${esPsicologo}">
                     <li><a class="psico-link ${param.activo == 'creartest' ? 'active' : ''}" href="${ctx}/creartest">Crear test</a></li>
+                    <li><a class="psico-link ${param.activo == 'respuestas' ? 'active' : ''}" href="${ctx}/psicologo/respuestas">Respuestas</a></li>
                 </c:if>
 
                 <c:if test="${esPaciente}">
                     <li><a class="psico-link ${param.activo == 'test' ? 'active' : ''}" href="${ctx}/test">Realizar test</a></li>
+                    <li><a class="psico-link ${param.activo == 'historial' ? 'active' : ''}" href="${ctx}/paciente/historial">Mis tests</a></li>
                 </c:if>
 
                 <li><a class="psico-link ${param.activo == 'info' ? 'active' : ''}" href="${ctx}/info">&iquest;Qui&eacute;nes somos?</a></li>

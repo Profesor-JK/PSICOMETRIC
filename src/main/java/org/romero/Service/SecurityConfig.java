@@ -45,12 +45,14 @@ public class SecurityConfig {
                         .requestMatchers("/test").hasRole("PACIENTE")
                         .requestMatchers("/test/**").hasRole("PACIENTE")
                         .requestMatchers("/psicologo/tests/**").hasRole("PSICOLOGO")
+                        .requestMatchers("/psicologo/respuestas", "/psicologo/respuestas/**").hasRole("PSICOLOGO")
+                        .requestMatchers("/paciente/historial").hasRole("PACIENTE")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .successHandler(successHandler())   // reemplaza defaultSuccessUrl
+                        .successHandler(successHandler())  
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )

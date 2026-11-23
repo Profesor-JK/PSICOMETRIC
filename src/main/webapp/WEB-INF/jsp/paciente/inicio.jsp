@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="light">
@@ -85,87 +86,45 @@
             </a>
         </div>
 
+        <c:if test="${empty tests}">
+            <div class="text-center text-muted py-4">
+                <i class="bi bi-journal-x fs-1 d-block mb-2"></i>
+                <p class="mb-0">A&uacute;n no hay tests publicados. Vuelve pronto.</p>
+            </div>
+        </c:if>
+
         <div class="row g-4">
-            <div class="col-12 col-md-6 col-lg-4 animate-fade-up delay-1">
-                <div class="card h-100 theme-accent card-hover rounded-4"
-                     data-bs-toggle="dialog"
-                     data-bs-target="#modalDetalleTest"
-                     data-tema="theme-accent"
-                     data-titulo="Test Terman-Merril"
-                     data-categoria="Inteligencia y Capacidad Cognitiva (CI)"
-                     data-descripcion="Evalúa el coeficiente intelectual a través de 10 subtests que miden información general, juicio, vocabulario, síntesis, concentración, análisis, abstracción, planeación, organización y atención."
-                     data-detalles="Duración: 40 min | 10 series de preguntas"
-                     data-url="${ctx}/test/terman-merril">
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge theme-subtle theme-accent">Cognitivo (CI)</span>
-                            <small class="text-muted"><i class="bi bi-clock me-1"></i>40 min</small>
-                        </div>
-                        <h4 class="card-title fw-bold mb-2">Test Terman-Merril</h4>
-                        <p class="card-text text-muted small flex-grow-1">
-                            Eval&uacute;a el coeficiente intelectual y la capacidad de adaptaci&oacute;n en puestos administrativos y de gerencia.
-                        </p>
-                        <div class="pt-3 border-top d-flex justify-content-between align-items-center">
-                            <span class="small fw-semibold">Ver detalles</span>
-                            <i class="bi bi-arrow-up-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4 animate-fade-up delay-2">
-                <div class="card h-100 theme-accent card-hover rounded-4"
-                     data-bs-toggle="dialog"
-                     data-bs-target="#modalDetalleTest"
-                     data-tema="theme-accent"
-                     data-titulo="Matrices Progresivas de Raven"
-                     data-categoria="Inteligencia y Capacidad Cognitiva (CI)"
-                     data-descripcion="Mide la inteligencia fluida, la capacidad de educción de relaciones y el razonamiento lógico-analítico mediante figuras geométricas abstractas sin sesgo cultural."
-                     data-detalles="Duración: 45 min | 60 matrices en 5 series"
-                     data-url="${ctx}/test/raven">
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge theme-subtle theme-accent">Razonamiento</span>
-                            <small class="text-muted"><i class="bi bi-clock me-1"></i>45 min</small>
-                        </div>
-                        <h4 class="card-title fw-bold mb-2">Matrices de Raven</h4>
-                        <p class="card-text text-muted small flex-grow-1">
-                            Mide la inteligencia fluida y el razonamiento l&oacute;gico-anal&iacute;tico mediante figuras geom&eacute;tricas abstractas.
-                        </p>
-                        <div class="pt-3 border-top d-flex justify-content-between align-items-center">
-                            <span class="small fw-semibold">Ver detalles</span>
-                            <i class="bi bi-arrow-up-right"></i>
+            <c:forEach var="t" items="${tests}" varStatus="st">
+                <c:set var="tema" value="${st.index % 2 == 0 ? 'theme-accent' : 'theme-primary'}"/>
+                <div class="col-12 col-md-6 col-lg-4 animate-fade-up delay-${st.index + 1}">
+                    <div class="card h-100 ${tema} card-hover rounded-4"
+                         data-bs-toggle="dialog"
+                         data-bs-target="#modalDetalleTest"
+                         data-tema="${tema}"
+                         data-titulo="<c:out value='${t.nombre}'/>"
+                         data-categoria="<c:out value='${t.categoria}'/>"
+                         data-descripcion="<c:out value='${t.descripcion}'/>"
+                         data-detalles="<c:if test='${t.duracionMin gt 0}'>Duración: ${t.duracionMin} min | </c:if>${fn:length(t.preguntas)} preguntas"
+                         data-url="${ctx}/test/${t.idTest}">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge theme-subtle ${tema}"><c:out value="${t.categoria}"/></span>
+                                <c:if test="${t.duracionMin gt 0}">
+                                    <small class="text-muted"><i class="bi bi-clock me-1"></i>${t.duracionMin} min</small>
+                                </c:if>
+                            </div>
+                            <h4 class="card-title fw-bold mb-2"><c:out value="${t.nombre}"/></h4>
+                            <p class="card-text text-muted small flex-grow-1">
+                                <c:out value="${fn:substring(t.descripcion, 0, 120)}"/><c:if test="${fn:length(t.descripcion) gt 120}">&hellip;</c:if>
+                            </p>
+                            <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                                <span class="small fw-semibold">Ver detalles</span>
+                                <i class="bi bi-arrow-up-right"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4 animate-fade-up delay-3">
-                <div class="card h-100 theme-primary card-hover rounded-4"
-                     data-bs-toggle="dialog"
-                     data-bs-target="#modalDetalleTest"
-                     data-tema="theme-primary"
-                     data-titulo="Test de Moss"
-                     data-categoria="Aptitudes y Perfil Laboral"
-                     data-descripcion="Evalúa el grado de adaptabilidad social frente a distintas situaciones laborales, analizando supervisión, relaciones humanas y sentido común."
-                     data-detalles="Duración: 20 min | 30 situaciones prácticas"
-                     data-url="${ctx}/test/moss">
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge theme-subtle theme-primary">Perfil Laboral</span>
-                            <small class="text-muted"><i class="bi bi-clock me-1"></i>20 min</small>
-                        </div>
-                        <h4 class="card-title fw-bold mb-2">Test de Moss</h4>
-                        <p class="card-text text-muted small flex-grow-1">
-                            Mide la adaptabilidad social, capacidad de supervisi&oacute;n y habilidades de liderazgo en contextos laborales.
-                        </p>
-                        <div class="pt-3 border-top d-flex justify-content-between align-items-center">
-                            <span class="small fw-semibold">Ver detalles</span>
-                            <i class="bi bi-arrow-up-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
         </div>
     </section>
 

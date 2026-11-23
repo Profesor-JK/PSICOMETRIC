@@ -43,6 +43,8 @@ public class SecurityConfig {
                         .requestMatchers("/psicologo/inicio").hasRole("PSICOLOGO")
                         .requestMatchers("/paciente/inicio").hasRole("PACIENTE")
                         .requestMatchers("/test").hasRole("PACIENTE")
+                        .requestMatchers("/test/**").hasRole("PACIENTE")
+                        .requestMatchers("/psicologo/tests/**").hasRole("PSICOLOGO")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

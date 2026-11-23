@@ -15,7 +15,6 @@ import java.util.Map;
 @RequestMapping("/api/consultas") // Buena práctica poner una ruta base para el controlador
 public class ConsultaController {
 
-    // 1. Inyectamos el SERVICIO, no el repositorio
     @Autowired
     private ConsultaService consultaService;
 
@@ -27,7 +26,6 @@ public class ConsultaController {
             LocalDateTime fechaConsulta = LocalDateTime.parse(request.getFechaConsulta());
             LocalDateTime ahora = LocalDateTime.now();
 
-            // 3. Validamos que sea en el futuro
             if (fechaConsulta.isBefore(ahora)) {
                 response.put("error", "La fecha de la cita debe ser en el futuro.");
                 return ResponseEntity.badRequest().body(response);

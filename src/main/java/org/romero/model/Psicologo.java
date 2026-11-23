@@ -13,7 +13,7 @@ public class Psicologo {
     @Column(name = "cedula", nullable = false, length = 10)
     private Integer cedula;
 
-    @Column(name = "Nombrepsic", nullable = false, length = 45)
+    @Column(name = "Nombre", nullable = false, length = 45)
     private String Nombre;
 
     @Column(name = "Apellidospsic", nullable = false, length = 50)

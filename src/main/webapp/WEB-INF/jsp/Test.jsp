@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="light">
 <head>
@@ -25,83 +28,52 @@
 </jsp:include>
 
 <div class="container my-4">
+
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
+    </c:if>
+
+    <div class="px-3">
+        <h1 class="h3 fw-bold mb-1">Tests disponibles</h1>
+        <p class="text-muted mb-0">Elige un test, revisa sus detalles y comienza cuando est&eacute;s listo.</p>
+    </div>
+
+    <c:if test="${empty tests}">
+        <div class="text-center text-muted py-5">
+            <i class="bi bi-journal-x fs-1 d-block mb-2"></i>
+            <p class="mb-0">A&uacute;n no hay tests publicados. Vuelve pronto.</p>
+        </div>
+    </c:if>
+
     <div class="row g-4 p-3">
-
-        <!-- primera cartita -->
-        <div class="col-auto animate-fade-up delay-1">
-            <div class="card theme-accent hover-lift card-seleccionable" style="width: 18rem;"
-                 data-bs-toggle="dialog"
-                 data-bs-target="#modalDetalleTest"
-                 data-tema="theme-accent"
-                 data-titulo="Test Terman-Merril"
-                 data-categoria="Evaluación de Inteligencia y Capacidad Cognitiva (CI)"
-                 data-descripcion="Evalúa el coeficiente intelectual a través de 10 subtests que miden información general, juicio, vocabulario, síntesis, concentración, análisis, abstracción, planeación, organización y atención. Es ideal para puestos administrativos, de supervisión y alta gerencia."
-                 data-detalles="Duración aproximada: 40 minutos | 10 series de preguntas"
-                 data-url="/test/terman-merril">
-                <div class="card-header">
-                    Evaluaci&oacute;n de Inteligencia y Capacidad Cognitiva (CI)
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Test Terman-Merril</h4>
-                    <p class="card-text">Eval&uacute;a el coeficiente intelectual y la capacidad de adaptaci&oacute;n en puestos administrativos, de supervisi&oacute;n y gerencia.</p>
-                    <button type="button" class="btn-solid theme-accent">Ver detalles</button>
-                </div>
-                <div class="card-footer fg-3">
-                    2 days ago
-                </div>
-            </div>
-        </div>
-
-        <!-- segunda cartita -->
-        <div class="col-auto animate-fade-up delay-2">
-            <div class="card theme-accent hover-lift card-seleccionable" style="width: 18rem;"
-                 data-bs-toggle="dialog"
-                 data-bs-target="#modalDetalleTest"
-                 data-tema="theme-accent"
-                 data-titulo="Test de Matrices Progresivas de Raven"
-                 data-categoria="Evaluación de Inteligencia y Capacidad Cognitiva (CI)"
-                 data-descripcion="Mide la inteligencia fluida, la capacidad de educción de relaciones y el razonamiento lógico-analítico mediante figuras geométricas abstractas. Al ser una prueba no verbal, elimina el sesgo educativo o cultural."
-                 data-detalles="Duración aproximada: 45 minutos | 60 matrices divididas en 5 series"
-                 data-url="/test/raven">
-                <div class="card-header">
-                    Evaluaci&oacute;n de Inteligencia y Capacidad Cognitiva (CI)
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Test de Matrices Progresivas de Raven</h4>
-                    <p class="card-text">Mide la inteligencia fluida y la capacidad de razonamiento anal&iacute;tico sin carga cultural.</p>
-                    <button type="button" class="btn-solid theme-accent">Ver detalles</button>
-                </div>
-                <div class="card-footer fg-3">
-                    2 days ago
+        <c:forEach var="t" items="${tests}" varStatus="st">
+            <c:set var="tema" value="${st.index % 2 == 0 ? 'theme-accent' : 'theme-primary'}"/>
+            <div class="col-auto animate-fade-up delay-${(st.index % 3) + 1}">
+                <div class="card ${tema} hover-lift card-seleccionable" style="width: 18rem;"
+                     data-bs-toggle="dialog"
+                     data-bs-target="#modalDetalleTest"
+                     data-tema="${tema}"
+                     data-titulo="<c:out value='${t.nombre}'/>"
+                     data-categoria="<c:out value='${t.categoria}'/>"
+                     data-descripcion="<c:out value='${t.descripcion}'/>"
+                     data-detalles="<c:if test='${t.duracionMin gt 0}'>Duración aproximada: ${t.duracionMin} minutos | </c:if>${fn:length(t.preguntas)} preguntas"
+                     data-url="${ctx}/test/${t.idTest}">
+                    <div class="card-header">
+                        <c:out value="${t.categoria}"/>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title"><c:out value="${t.nombre}"/></h4>
+                        <p class="card-text">
+                            <c:out value="${fn:substring(t.descripcion, 0, 110)}"/><c:if test="${fn:length(t.descripcion) gt 110}">&hellip;</c:if>
+                        </p>
+                        <button type="button" class="btn-solid ${tema}">Ver detalles</button>
+                    </div>
+                    <div class="card-footer fg-3">
+                        Publicado el ${t.fechaCreacion.toLocalDate()}
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- tercera cartita -->
-        <div class="col-auto animate-fade-up delay-3">
-            <div class="card theme-primary hover-lift card-seleccionable" style="width: 18rem;"
-                 data-bs-toggle="dialog"
-                 data-bs-target="#modalDetalleTest"
-                 data-tema="theme-primary"
-                 data-titulo="Test de Moss"
-                 data-categoria="Aptitudes, Habilidades y Perfil Laboral"
-                 data-descripcion="Evalúa el grado de adaptabilidad social de una persona frente a distintas situaciones laborales. Analiza cinco dimensiones clave: habilidad en supervisión, capacidad de decisión en relaciones humanas, evaluación de problemas interpersonales, habilidad para establecer relaciones y sentido común."
-                 data-detalles="Duración aproximada: 20 minutos | 30 situaciones prácticas"
-                 data-url="/test/moss">
-                <div class="card-header">
-                    Aptitudes, Habilidades y Perfil Laboral
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Test de Moss</h4>
-                    <p class="card-text">Mide la adaptabilidad social, capacidad de supervisi&oacute;n y habilidades de liderazgo en contextos gerenciales.</p>
-                    <button type="button" class="btn-solid theme-primary">Ver detalles</button>
-                </div>
-                <div class="card-footer fg-2">
-                    2 days ago
-                </div>
-            </div>
-        </div>
-
+        </c:forEach>
     </div>
 </div>
 
@@ -125,7 +97,7 @@
     </div>
 </dialog>
 
-<script src="/static/js/navbar.js"></script>
+<script src="/js/navbar.js"></script>
 
 <script>
     const modal = document.getElementById('modalDetalleTest');

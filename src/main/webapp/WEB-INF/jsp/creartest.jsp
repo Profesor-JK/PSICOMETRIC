@@ -33,7 +33,7 @@
     </div>
 
 
-    <form id="formTest" method="post" action="/psicologo/tests/guardar" data-demo="true" novalidate>
+    <form id="formTest" method="post" action="/psicologo/tests/guardar" novalidate>
       <input type="hidden" name="testJson" id="testJson">
 
       <div class="row g-4">
@@ -155,11 +155,20 @@
 
             <div id="alertaGuardado" class="alert alert-success small d-none" role="alert">
               <i class="bi bi-check-circle-fill me-1"></i>
-              Test validado. <strong>Modo demostraci&oacute;n:</strong> a&uacute;n no se env&iacute;a al servidor; abajo puedes ver los datos que se guardar&iacute;an.
+              <span id="msgGuardado">Test guardado.</span>
+              <div class="mt-2 d-flex gap-2 flex-wrap">
+                <a href="/creartest" class="btn btn-sm btn-success">Crear otro test</a>
+                <a href="/psicologo/inicio" class="btn btn-sm btn-outline-success">Ir al inicio</a>
+              </div>
+            </div>
+
+            <div id="alertaError" class="alert alert-danger small d-none" role="alert">
+              <i class="bi bi-x-circle-fill me-1"></i>
+              <span id="msgError"></span>
             </div>
 
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary btn-lg">
+              <button type="submit" id="btnGuardar" class="btn btn-primary btn-lg">
                 <i class="bi bi-save me-1"></i>Guardar test
               </button>
               <button type="button" id="btnVistaJson" class="btn btn-outline-secondary">

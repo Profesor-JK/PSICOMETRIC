@@ -1,0 +1,15 @@
+package org.romero.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/paciente")
+public class PacienteWebController {
+
+    @GetMapping("/inicio")
+    public String mostrarInicio() {
+        return "paciente/inicio";
+    }
+}

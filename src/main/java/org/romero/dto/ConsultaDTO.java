@@ -4,6 +4,7 @@ public class ConsultaDTO {
     private String fechaConsulta;
     private Integer idpaciente;
     private Integer cedula;
+    private Integer idtutor;
 
     public String getFechaConsulta() {
         return fechaConsulta;
@@ -27,5 +28,13 @@ public class ConsultaDTO {
 
     public void setCedula(Integer cedula) {
         this.cedula = cedula;
+    }
+
+    public Integer getIdtutor() {
+        return idtutor;
+    }
+
+    public void setIdtutor(Integer idtutor) {
+        this.idtutor = idtutor;
     }
 }

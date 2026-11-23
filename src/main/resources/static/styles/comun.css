@@ -113,6 +113,12 @@ body {
 
 .psico-actions { display: flex; gap: 0.5rem; }
 
+.psico-user {
+  align-self: center;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.875rem;
+}
+
 .psico-btn {
   display: inline-block;
   padding: 0.25rem 0.5rem;

@@ -42,6 +42,9 @@ public class Test {
     @Column(name = "activo", nullable = false)
     private Boolean activo = true;
 
+    @Column(name = "id_paciente_exclusivo")
+    private Integer idPacienteExclusivo;
+
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
@@ -52,6 +55,11 @@ public class Test {
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("minimo ASC")
     private List<RangoResultado> resultados = new ArrayList<>();
+
+    public boolean esExclusivo() { return idPacienteExclusivo != null; }
+    public boolean esVisibleParaPaciente(Integer idPaciente) {
+        return idPacienteExclusivo == null || idPacienteExclusivo.equals(idPaciente);
+    }
 
     public Integer getIdTest() { return idTest; }
     public void setIdTest(Integer idTest) { this.idTest = idTest; }
@@ -73,6 +81,8 @@ public class Test {
     public void setPuntajeMax(Double puntajeMax) { this.puntajeMax = puntajeMax; }
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }
+    public Integer getIdPacienteExclusivo() { return idPacienteExclusivo; }
+    public void setIdPacienteExclusivo(Integer idPacienteExclusivo) { this.idPacienteExclusivo = idPacienteExclusivo; }
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
     public void setFechaCreacion(LocalDateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
     public List<Pregunta> getPreguntas() { return preguntas; }

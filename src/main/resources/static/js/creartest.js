@@ -1,4 +1,3 @@
-
 (function () {
     'use strict';
 
@@ -22,6 +21,10 @@
     const ORDEN_NIVELES = ['success', 'primary', 'warning', 'danger'];
 
     const $ = function (sel) { return document.querySelector(sel); };
+
+    const chkExclusivo = $('#testExclusivo');
+    const bloqueExclusivo = $('#bloqueExclusivo');
+    const selPaciente = $('#testPaciente');
 
     function esc(s) {
         return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -228,6 +231,7 @@
 
         if (!$('#testNombre').value.trim()) errores.push('Escribe el nombre del test.');
         if (!estado.preguntas.length) errores.push('Agrega al menos una pregunta.');
+        if (chkExclusivo.checked && !selPaciente.value) errores.push('Elige el paciente para quien es exclusivo este test.');
 
         estado.preguntas.forEach(function (p, i) {
             const n = i + 1;
@@ -303,6 +307,7 @@
             duracionMin: num($('#testDuracion').value),
             descripcion: $('#testDescripcion').value.trim(),
             instrucciones: $('#testInstrucciones').value.trim(),
+            idPacienteExclusivo: chkExclusivo.checked && selPaciente.value ? parseInt(selPaciente.value, 10) : null,
             puntajeMinimo: t[0],
             puntajeMaximo: t[1],
             preguntas: estado.preguntas.map(function (p, i) {
@@ -439,11 +444,44 @@
         cards[cards.length - 1].querySelector('[data-campo="titulo"]').focus();
     });
 
+    // ---- Test exclusivo para un paciente: la lista se pide al servidor cada vez,
+    //      así los pacientes recién registrados aparecen sin recargar la página.
+    function cargarPacientes() {
+        const previo = selPaciente.value;
+        selPaciente.disabled = true;
+        return fetch('/psicologo/pacientes', { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
+            .then(function (res) {
+                if (!res.ok) throw new Error('http ' + res.status);
+                return res.json();
+            })
+            .then(function (lista) {
+                selPaciente.innerHTML = '<option value="">Selecciona un paciente</option>' + lista.map(function (p) {
+                    return '<option value="' + esc(p.idPaciente) + '">' + esc(p.nombre) + ' (' + esc(p.correo) + ')</option>';
+                }).join('');
+                if (previo) selPaciente.value = previo;
+            })
+            .catch(function () {
+                selPaciente.innerHTML = '<option value="">No se pudo cargar la lista de pacientes</option>';
+            })
+            .then(function () {
+                selPaciente.disabled = false;
+                programarRevision();
+            });
+    }
+
+    chkExclusivo.addEventListener('change', function () {
+        bloqueExclusivo.classList.toggle('d-none', !chkExclusivo.checked);
+        if (chkExclusivo.checked) cargarPacientes(); else selPaciente.value = '';
+        programarRevision();
+    });
+    $('#btnRecargarPacientes').addEventListener('click', cargarPacientes);
+
     document.querySelectorAll('.campo-info').forEach(function (el) {
         el.addEventListener('input', programarRevision);
     });
 
-    $('#btnVistaJson').addEventListener('click', mostrarJson);
+    const btnVistaJson = $('#btnVistaJson');
+    if (btnVistaJson) btnVistaJson.addEventListener('click', mostrarJson);
 
     function guardarEnServidor(url, datos) {
         const btn = $('#btnGuardar');

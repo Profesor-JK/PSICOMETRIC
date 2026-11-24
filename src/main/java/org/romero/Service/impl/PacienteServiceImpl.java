@@ -2,10 +2,12 @@ package org.romero.Service.impl;
 
 import org.romero.Service.PacienteService;
 import org.romero.dao.PacienteRepository;
+import org.romero.dto.PacienteResumenDTO;
 import org.romero.model.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 @Service
 public class PacienteServiceImpl implements PacienteService {
@@ -34,6 +36,15 @@ public class PacienteServiceImpl implements PacienteService {
     @Override
     public Paciente obtenerCorreo(String correo){
         return pacienteRepository.findByCorreoPac(correo);
+    }
+
+    @Override
+    public List<PacienteResumenDTO> listarResumenes() {
+        return pacienteRepository.findAll().stream()
+                .map(p -> new PacienteResumenDTO(p.getIdPaciente(),
+                        (p.getNombrePac() + " " + p.getApellidosPac()).trim(), p.getCorreoPac()))
+                .sorted(Comparator.comparing(PacienteResumenDTO::nombre, String.CASE_INSENSITIVE_ORDER))
+                .toList();
     }
 
 }

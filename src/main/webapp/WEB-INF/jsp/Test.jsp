@@ -70,6 +70,7 @@
                     </div>
                     <div class="card-footer fg-3">
                         Publicado el ${t.fechaCreacion.toLocalDate()}
+                        <c:if test="${t.esExclusivo()}"> &middot; Exclusivo para ti</c:if>
                     </div>
                 </div>
             </div>

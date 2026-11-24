@@ -29,7 +29,7 @@ public class DirectorioServiceImpl implements DirectorioService {
         Map<String, String> nombres = new HashMap<>();
         Map<String, List<TestDirectorioDTO>> grupos = new HashMap<>();
 
-        for (Test t : testRepository.findByActivoTrueOrderByFechaCreacionDesc()) {
+        for (Test t : testRepository.findByActivoTrueAndIdPacienteExclusivoIsNullOrderByFechaCreacionDesc()) {
             String limpia = t.getCategoria() == null ? "" : t.getCategoria().trim();
             String nombre = limpia.isEmpty() ? SIN_CATEGORIA : limpia;
             String clave = nombre.toLowerCase(Locale.ROOT);

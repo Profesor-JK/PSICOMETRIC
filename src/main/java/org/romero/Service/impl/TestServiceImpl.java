@@ -1,5 +1,6 @@
 package org.romero.Service.impl;
 
+import org.romero.Service.PacienteService;
 import org.romero.Service.TestService;
 import org.romero.dao.IntentoRepository;
 import org.romero.dao.TestRepository;
@@ -27,6 +28,8 @@ public class TestServiceImpl implements TestService {
     private TestRepository testRepository;
     @Autowired
     private IntentoRepository intentoRepository;
+    @Autowired
+    private PacienteService pacienteService;
 
 
     @Override
@@ -46,6 +49,13 @@ public class TestServiceImpl implements TestService {
         test.setDescripcion(limpiar(dto.descripcion()));
         test.setInstrucciones(limpiar(dto.instrucciones()));
         test.setDuracionMin(dto.duracionMin() != null && dto.duracionMin() > 0 ? dto.duracionMin().intValue() : null);
+
+        if (dto.idPacienteExclusivo() != null) {
+            if (pacienteService.findById(dto.idPacienteExclusivo()) == null) {
+                throw new IllegalArgumentException("El paciente elegido para el test exclusivo ya no existe.");
+            }
+            test.setIdPacienteExclusivo(dto.idPacienteExclusivo());
+        }
 
         int n = 1;
         for (PreguntaDTO pd : dto.preguntas()) {
@@ -134,8 +144,17 @@ public class TestServiceImpl implements TestService {
     //  PACIENTE: listar, abrir y resolver tests
     // =====================================================================
     @Override
-    public List<Test> findAllActivos() {
-        return testRepository.findByActivoTrueOrderByFechaCreacionDesc();
+    public List<Test> findDisponiblesParaPaciente(Integer idPaciente) {
+        return testRepository.findDisponiblesParaPaciente(idPaciente);
+    }
+
+    @Override
+    public Test findDisponible(Integer idTest, Integer idPaciente) {
+        Test test = testRepository.findById(idTest).orElse(null);
+        if (test == null || !Boolean.TRUE.equals(test.getActivo()) || !test.esVisibleParaPaciente(idPaciente)) {
+            return null;
+        }
+        return test;
     }
 
     @Override
@@ -153,7 +172,7 @@ public class TestServiceImpl implements TestService {
     public Intento resolver(Integer idTest, Integer idPaciente, Map<String, String[]> params) {
         Test test = testRepository.findById(idTest)
                 .orElseThrow(() -> new IllegalArgumentException("El test no existe."));
-        if (!Boolean.TRUE.equals(test.getActivo())) {
+        if (!Boolean.TRUE.equals(test.getActivo()) || !test.esVisibleParaPaciente(idPaciente)) {
             throw new IllegalArgumentException("Este test ya no está disponible.");
         }
 

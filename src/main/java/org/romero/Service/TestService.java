@@ -9,7 +9,8 @@ import java.util.Map;
 
 public interface TestService {
     Test guardar(TestDTO dto, Integer cedulaPsicologo);
-    List<Test> findAllActivos();
+    List<Test> findDisponiblesParaPaciente(Integer idPaciente);
+    Test findDisponible(Integer idTest, Integer idPaciente);
     Test findById(Integer idTest);
     Intento resolver(Integer idTest, Integer idPaciente, Map<String, String[]> respuestas);
     Intento findIntento(Integer idIntento);

@@ -12,7 +12,8 @@ public record TestDTO(
         String descripcion,
         String instrucciones,
         List<PreguntaDTO> preguntas,
-        List<ResultadoDTO> resultados) {
+        List<ResultadoDTO> resultados,
+        Integer idPacienteExclusivo) {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record PreguntaDTO(

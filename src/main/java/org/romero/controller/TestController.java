@@ -1,8 +1,8 @@
 package org.romero.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.romero.Service.PacienteService;
 import org.romero.Service.TestService;
-import org.romero.dao.PacienteRepository;
 import org.romero.model.Intento;
 import org.romero.model.Paciente;
 import org.romero.model.Test;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class TestController {
@@ -22,24 +23,27 @@ public class TestController {
     @Autowired
     private TestService testService;
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private PacienteService pacienteService;
 
     @GetMapping("/creartest")
     public String mostrarCrearTest() {
         return "creartest";
     }
 
-    /** Lista de tests publicados por los psicólogos. */
     @GetMapping("/test")
-    public String mostrarTest(Model model) {
-        model.addAttribute("tests", testService.findAllActivos());
+    public String mostrarTest(Principal principal, Model model) {
+        Paciente paciente = pacienteService.obtenerCorreo(principal.getName());
+        model.addAttribute("tests", paciente == null
+                ? List.of()
+                : testService.findDisponiblesParaPaciente(paciente.getIdPaciente()));
         return "Test";
     }
 
     @GetMapping("/test/{idTest}")
-    public String resolverTest(@PathVariable Integer idTest, Model model, RedirectAttributes ra) {
-        Test test = testService.findById(idTest);
-        if (test == null || !Boolean.TRUE.equals(test.getActivo())) {
+    public String resolverTest(@PathVariable Integer idTest, Principal principal, Model model, RedirectAttributes ra) {
+        Paciente paciente = pacienteService.obtenerCorreo(principal.getName());
+        Test test = paciente == null ? null : testService.findDisponible(idTest, paciente.getIdPaciente());
+        if (test == null) {
             ra.addFlashAttribute("error", "El test que buscas no está disponible.");
             return "redirect:/test";
         }
@@ -51,7 +55,7 @@ public class TestController {
     @PostMapping("/test/{idTest}/enviar")
     public String enviarRespuestas(@PathVariable Integer idTest, HttpServletRequest request,
                                    Principal principal, RedirectAttributes ra) {
-        Paciente paciente = pacienteRepository.findByCorreoPac(principal.getName());
+        Paciente paciente = pacienteService.obtenerCorreo(principal.getName());
         if (paciente == null) {
             ra.addFlashAttribute("error", "No se encontró tu cuenta de paciente.");
             return "redirect:/test";
@@ -68,7 +72,7 @@ public class TestController {
     @GetMapping("/test/resultado/{idIntento}")
     public String verResultado(@PathVariable Integer idIntento, Principal principal,
                                Model model, RedirectAttributes ra) {
-        Paciente paciente = pacienteRepository.findByCorreoPac(principal.getName());
+        Paciente paciente = pacienteService.obtenerCorreo(principal.getName());
         Intento intento = testService.findIntento(idIntento);
         if (paciente == null || intento == null || !intento.getIdPaciente().equals(paciente.getIdPaciente())) {
             ra.addFlashAttribute("error", "No encontramos ese resultado.");

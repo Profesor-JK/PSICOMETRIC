@@ -75,6 +75,24 @@
                   <label for="testInstrucciones" class="form-label fw-semibold">Instrucciones para el usuario</label>
                   <textarea class="form-control campo-info" id="testInstrucciones" rows="2" placeholder="Qu&eacute; debe saber el usuario antes de empezar"></textarea>
                 </div>
+                <div class="col-12">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input campo-info" type="checkbox" role="switch" id="testExclusivo">
+                    <label class="form-check-label fw-semibold" for="testExclusivo">Test EXCLUSIVO PARA UN PACIENTE</label>
+                  </div>
+                  <div id="bloqueExclusivo" class="d-none mt-2">
+                    <label for="testPaciente" class="form-label fw-semibold">Paciente <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <select class="form-select campo-info" id="testPaciente">
+                        <option value="">Selecciona un paciente</option>
+                      </select>
+                      <button type="button" class="btn btn-outline-secondary" id="btnRecargarPacientes" title="Actualizar lista de pacientes">
+                        <i class="bi bi-arrow-clockwise"></i>
+                      </button>
+                    </div>
+                    <div class="form-text">Solo este paciente ver&aacute; el test: no aparece en el directorio ni para los dem&aacute;s pacientes.</div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>

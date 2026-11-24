@@ -366,7 +366,7 @@
     }
 </script>
 
-<script src="/static/js/navbar.js"></script>
+<script src="/js/navbar.js"></script>
 
 </body>
 </html>

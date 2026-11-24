@@ -140,9 +140,12 @@ public class TestServiceImpl implements TestService {
         return testRepository.save(test);
     }
 
-    // =====================================================================
-    //  PACIENTE: listar, abrir y resolver tests
-    // =====================================================================
+
+    @Override
+    public List<Test> findPublicosActivos() {
+        return testRepository.findByActivoTrueAndIdPacienteExclusivoIsNullOrderByFechaCreacionDesc();
+    }
+
     @Override
     public List<Test> findDisponiblesParaPaciente(Integer idPaciente) {
         return testRepository.findDisponiblesParaPaciente(idPaciente);

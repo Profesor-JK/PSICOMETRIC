@@ -1,8 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<c:set var="esPsicologo" value="${pageContext.request.isUserInRole('PSICOLOGO')}" />
-<c:set var="esPaciente" value="${pageContext.request.isUserInRole('PACIENTE')}" />
+<%-- Sesión real = hay usuario autenticado. Sin sesión (invitado) los dos roles son false. --%>
+<c:set var="hayUsuario" value="${not empty pageContext.request.userPrincipal}" />
+<c:set var="esPsicologo" value="${hayUsuario and pageContext.request.isUserInRole('PSICOLOGO')}" />
+<c:set var="esPaciente" value="${hayUsuario and not esPsicologo and pageContext.request.isUserInRole('PACIENTE')}" />
+<c:set var="esInvitado" value="${not esPsicologo and not esPaciente}" />
 <c:set var="inicioUrl" value="${esPsicologo ? '/psicologo/inicio' : (esPaciente ? '/paciente/inicio' : '/')}" />
 
 <nav class="psico-nav">
@@ -21,6 +24,10 @@
                 <li><a class="psico-link ${param.activo == 'inicio' ? 'active' : ''}" href="${ctx}${inicioUrl}">Inicio</a></li>
                 <li><a class="psico-link ${param.activo == 'directorio' ? 'active' : ''}" href="${ctx}/directorio">Directorio de Tests</a></li>
 
+                <c:if test="${esInvitado}">
+                    <li><a class="psico-link" href="${ctx}/#comunidad">Psic&oacute;logos</a></li>
+                </c:if>
+
                 <c:if test="${esPsicologo}">
                     <li><a class="psico-link ${param.activo == 'creartest' ? 'active' : ''}" href="${ctx}/creartest">Crear test</a></li>
                     <li><a class="psico-link ${param.activo == 'respuestas' ? 'active' : ''}" href="${ctx}/psicologo/respuestas">Respuestas</a></li>
@@ -36,7 +43,7 @@
 
             <div class="psico-actions">
                 <c:choose>
-                    <c:when test="${esPsicologo || esPaciente}">
+                    <c:when test="${not esInvitado}">
                         <form action="${ctx}/logout" method="post" class="d-inline m-0">
                             <button type="submit" class="psico-btn ">Cerrar sesi&oacute;n</button>
                         </form>

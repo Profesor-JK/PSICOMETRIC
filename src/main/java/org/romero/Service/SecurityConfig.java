@@ -36,8 +36,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+                        // vista de invitado (sin cuenta): inicio, directorio de tests públicos, psicólogos e info
+                        .requestMatchers("/", "/prueba", "/directorio", "/info").permitAll()
                         .requestMatchers("/login", "/login.jsp", "/registro",
-                                "/css/**", "/js/**", "/error").permitAll()
+                                "/css/**", "/js/**", "/styles/**", "/img/**", "/error").permitAll()
                         // roles
                         .requestMatchers("/creartest").hasRole("PSICOLOGO")
                         .requestMatchers("/psicologo/inicio").hasRole("PSICOLOGO")

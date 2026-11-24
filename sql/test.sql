@@ -1,9 +1,6 @@
--- contraseña de escuela "n0m3l0"
--- contraseña de erick "3141592653589793238463"
-
 drop database if exists psicometric;
-	create database psicometric;
-	use psicometric;
+create database psicometric;
+use psicometric;
 CREATE TABLE `tutor` (
                          `idtutor` int NOT NULL AUTO_INCREMENT,
                          `Nombretut` varchar(50) NOT NULL,
@@ -61,11 +58,11 @@ insert into psicologo (cedula, Nombre, Apellidospsic, Fechanacpsic, Generopsic, 
 values (123456, 'Dr. Juan', 'Martinez', '1970-02-15', 'Masculino', 'psicopass1', 'juan.martinez@email.com', 'Psicologo', 'UNAM'),
        (789012, 'Dra. Ana', 'Gomez', '1985-11-05', 'Femenino', 'psicopass2', 'ana.gomez@email.com', 'Psicologo', 'UNAM');
 
-select * from psicologo;
+
 
 CREATE TABLE IF NOT EXISTS test (
                                     idtest         INT NOT NULL AUTO_INCREMENT,
-                                    cedula         INT NOT NULL,                       -- psicólogo que lo creó
+                                    cedula         INT NOT NULL,
                                     nombre         VARCHAR(150) NOT NULL,
     categoria      VARCHAR(150) DEFAULT NULL,
     duracion_min   INT DEFAULT NULL,
@@ -74,18 +71,23 @@ CREATE TABLE IF NOT EXISTS test (
     puntaje_min    DECIMAL(10,2) NOT NULL DEFAULT 0,
     puntaje_max    DECIMAL(10,2) NOT NULL DEFAULT 0,
     activo         TINYINT(1) NOT NULL DEFAULT 1,
+    id_paciente_exclusivo INT DEFAULT NULL,
     fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (idtest),
     KEY test_psicologo_idx (cedula),
-    CONSTRAINT fk_test_psicologo FOREIGN KEY (cedula) REFERENCES psicologo (cedula)
+    KEY test_paciente_exclusivo_idx (id_paciente_exclusivo),
+    CONSTRAINT fk_test_psicologo FOREIGN KEY (cedula) REFERENCES psicologo (cedula),
+    CONSTRAINT fk_test_paciente_exclusivo FOREIGN KEY (id_paciente_exclusivo) REFERENCES paciente (idpaciente) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 
 CREATE TABLE IF NOT EXISTS pregunta (
                                         idpregunta   INT NOT NULL AUTO_INCREMENT,
                                         idtest       INT NOT NULL,
                                         orden        INT NOT NULL,
                                         texto        VARCHAR(1000) NOT NULL,
-    tipo         VARCHAR(20) NOT NULL,                 -- unica | multiple | escala | abierta
+    tipo         VARCHAR(20) NOT NULL,
     obligatoria  TINYINT(1) NOT NULL DEFAULT 1,
     escala_min   DECIMAL(10,2) DEFAULT NULL,
     escala_max   DECIMAL(10,2) DEFAULT NULL,
@@ -114,7 +116,7 @@ CREATE TABLE IF NOT EXISTS rango_resultado (
     maximo      DECIMAL(10,2) NOT NULL,
     titulo      VARCHAR(150) NOT NULL,
     descripcion VARCHAR(2000) DEFAULT NULL,
-    nivel       VARCHAR(20) NOT NULL DEFAULT 'primary', -- success | primary | warning | danger | secondary
+    nivel       VARCHAR(20) NOT NULL DEFAULT 'primary', 
     PRIMARY KEY (idrango),
     KEY rango_test_idx (idtest),
     CONSTRAINT fk_rango_test FOREIGN KEY (idtest) REFERENCES test (idtest) ON DELETE CASCADE
@@ -147,3 +149,19 @@ CREATE TABLE IF NOT EXISTS respuesta_intento (
     KEY respuesta_intento_idx (idintento),
     CONSTRAINT fk_respuesta_intento FOREIGN KEY (idintento) REFERENCES intento (idintento) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+ALTER TABLE paciente ADD COLUMN idtutor INT DEFAULT NULL,
+  ADD CONSTRAINT fk_paciente_tutor FOREIGN KEY (idtutor) REFERENCES tutor(idtutor);
+UPDATE paciente SET idtutor = 1 WHERE correopac = 'erick.gonzalez@email.com';
+UPDATE paciente SET idtutor = 2 WHERE correopac = 'juan.perez@email.com';
+
+
+CREATE TABLE moderador (
+                           idmoderador INT NOT NULL AUTO_INCREMENT,
+                           usuario VARCHAR(30) NOT NULL,
+                           contra VARCHAR(30) NOT NULL,
+                           PRIMARY KEY (idmoderador),
+                           UNIQUE KEY uq_moderador_usuario (usuario)
+);
+INSERT INTO moderador (usuario, contra) VALUES ('admin', '1234');

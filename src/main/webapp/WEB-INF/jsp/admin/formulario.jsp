@@ -65,7 +65,7 @@
                   </c:when>
                   <c:otherwise>
                     <input type="${c.tipo}" class="form-control" id="c_${c.nombre}" name="${c.nombre}" value="<c:out value='${c.valor}'/>"
-                           ${c.requerido ? 'required' : ''} ${c.soloLectura ? 'readonly' : ''} ${c.tipo == 'password' ? 'autocomplete="new-password"' : ''}>
+                      ${c.requerido ? 'required' : ''} ${c.soloLectura ? 'readonly' : ''} ${c.tipo == 'password' ? 'autocomplete="new-password"' : ''}>
                     <%-- un campo de solo lectura no se envía como "disabled", pero sí como readonly --%>
                   </c:otherwise>
                 </c:choose>
@@ -91,5 +91,17 @@
 </footer>
 
 <script src="/js/navbar.js"></script>
+<script>
+  // La fecha de nacimiento no puede ser futura ni anterior a 1900.
+  (function () {
+    var hoy = new Date();
+    var iso = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0') + '-' + String(hoy.getDate()).padStart(2, '0');
+    document.querySelectorAll('input[type="date"]').forEach(function (el) {
+      el.max = iso;
+      el.min = '1900-01-01';
+    });
+  })();
+</script>
+
 </body>
 </html>

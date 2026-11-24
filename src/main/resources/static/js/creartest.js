@@ -110,7 +110,7 @@
                 '<i class="bi ' + icono + ' text-muted"></i>' +
                 '<input type="text" class="form-control form-control-sm" data-campo="opTexto" placeholder="Respuesta ' + (j + 1) + '" value="' + esc(o.texto) + '">' +
                 '<div class="input-group input-group-sm puntos-group">' +
-                '<input type="number" step="any" class="form-control" data-campo="opPuntos" value="' + esc(o.puntos) + '" title="Puntos que suma esta respuesta">' +
+                '<input type="number" step="any" min="0" class="form-control" data-campo="opPuntos" value="' + esc(o.puntos) + '" title="Puntos que suma esta respuesta">' +
                 '<span class="input-group-text">pts</span>' +
                 '</div>' +
                 '<button type="button" class="btn btn-sm btn-outline-danger" data-accion="delOpcion" title="Quitar respuesta"><i class="bi bi-x-lg"></i></button>' +
@@ -126,9 +126,9 @@
         return '' +
             '<div class="row g-2">' +
             '<div class="col-6 col-md-3"><label class="form-label small mb-1">Valor mínimo</label>' +
-            '<input type="number" step="any" class="form-control form-control-sm" data-campo="escMin" value="' + esc(e.min) + '"></div>' +
+            '<input type="number" step="any" min="0" class="form-control form-control-sm" data-campo="escMin" value="' + esc(e.min) + '"></div>' +
             '<div class="col-6 col-md-3"><label class="form-label small mb-1">Valor máximo</label>' +
-            '<input type="number" step="any" class="form-control form-control-sm" data-campo="escMax" value="' + esc(e.max) + '"></div>' +
+            '<input type="number" step="any" min="0" class="form-control form-control-sm" data-campo="escMax" value="' + esc(e.max) + '"></div>' +
             '<div class="col-6 col-md-3"><label class="form-label small mb-1">Etiqueta mínimo</label>' +
             '<input type="text" class="form-control form-control-sm" data-campo="escEtMin" placeholder="Ej. Nunca" value="' + esc(e.etiquetaMin) + '"></div>' +
             '<div class="col-6 col-md-3"><label class="form-label small mb-1">Etiqueta máximo</label>' +
@@ -171,9 +171,9 @@
             '<span class="badge text-bg-' + r.nivel + '">Resultado ' + (i + 1) + '</span>' +
             '<div class="input-group input-group-sm w-auto">' +
             '<span class="input-group-text">De</span>' +
-            '<input type="number" step="any" class="form-control" style="width:90px" data-campo="min" value="' + esc(r.min) + '">' +
+            '<input type="number" step="any" min="0" class="form-control" style="width:90px" data-campo="min" value="' + esc(r.min) + '">' +
             '<span class="input-group-text">a</span>' +
-            '<input type="number" step="any" class="form-control" style="width:90px" data-campo="max" value="' + esc(r.max) + '">' +
+            '<input type="number" step="any" min="0" class="form-control" style="width:90px" data-campo="max" value="' + esc(r.max) + '">' +
             '<span class="input-group-text">pts</span>' +
             '</div>' +
             '<select class="form-select form-select-sm w-auto" data-campo="nivel">' + opcionesSelect(NIVELES, r.nivel) + '</select>' +
@@ -240,6 +240,10 @@
                 if (p.opciones.length < 2) errores.push('Pregunta ' + n + ': agrega al menos 2 respuestas.');
                 if (p.opciones.some(function (o) { return !o.texto.trim(); })) errores.push('Pregunta ' + n + ': hay respuestas vacías.');
             }
+            if (p.tipo === 'unica' || p.tipo === 'multiple') {
+                if (p.opciones.some(function (o) { return num(o.puntos) < 0; })) errores.push('Pregunta ' + n + ': los puntos no pueden ser negativos.');
+            }
+            if (p.tipo === 'escala' && num(p.escala.min) < 0) errores.push('Pregunta ' + n + ': la escala no puede tener valores negativos.');
             if (p.tipo === 'escala' && num(p.escala.min) >= num(p.escala.max)) {
                 errores.push('Pregunta ' + n + ': el mínimo de la escala debe ser menor que el máximo.');
             }
@@ -251,6 +255,7 @@
 
         estado.resultados.forEach(function (r, i) {
             const n = i + 1;
+            if (num(r.min) < 0 || num(r.max) < 0) errores.push('Resultado ' + n + ': el puntaje no puede ser negativo.');
             if (num(r.min) > num(r.max)) errores.push('Resultado ' + n + ': el mínimo es mayor que el máximo.');
             if (!r.titulo.trim()) errores.push('Resultado ' + n + ': falta el título.');
         });
@@ -336,6 +341,18 @@
         pre.textContent = JSON.stringify(construirJson(), null, 2);
         pre.classList.remove('d-none');
     }
+
+    // Ningún campo numérico de puntos acepta negativos: se bloquea el "-" y se limpia lo pegado.
+    function sinNegativos(e) {
+        const el = e.target;
+        if (el.matches && el.matches('input[type="number"][min="0"]') && el.value.trim().charAt(0) === '-') {
+            el.value = el.value.replace(/^\s*-+/, '');
+        }
+    }
+    document.addEventListener('keydown', function (e) {
+        if (e.key === '-' && e.target.matches && e.target.matches('input[type="number"][min="0"]')) e.preventDefault();
+    });
+    document.addEventListener('input', sinNegativos, true);   // captura: corre antes de los demás manejadores
 
     $('#listaPreguntas').addEventListener('input', function (e) {
         const campo = e.target.dataset.campo;

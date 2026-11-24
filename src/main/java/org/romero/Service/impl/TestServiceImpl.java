@@ -88,6 +88,9 @@ public class TestServiceImpl implements TestService {
                     o.setPregunta(p);
                     o.setOrden(k++);
                     o.setTexto(od.texto().trim());
+                    if (od.puntos() != null && od.puntos() < 0) {
+                        throw new IllegalArgumentException("Pregunta " + n + ": los puntos no pueden ser negativos.");
+                    }
                     o.setPuntos(od.puntos() == null ? 0.0 : od.puntos());
                     p.getOpciones().add(o);
                 }
@@ -95,6 +98,9 @@ public class TestServiceImpl implements TestService {
                 EscalaDTO e = pd.escala();
                 if (e == null || e.min() == null || e.max() == null || e.min() >= e.max()) {
                     throw new IllegalArgumentException("Pregunta " + n + ": el mínimo de la escala debe ser menor que el máximo.");
+                }
+                if (e.min() < 0) {
+                    throw new IllegalArgumentException("Pregunta " + n + ": la escala no puede tener valores negativos.");
                 }
                 p.setEscalaMin(e.min());
                 p.setEscalaMax(e.max());
@@ -111,6 +117,9 @@ public class TestServiceImpl implements TestService {
             for (ResultadoDTO rd : dto.resultados()) {
                 if (rd == null || rd.min() == null || rd.max() == null || rd.min() > rd.max()) {
                     throw new IllegalArgumentException("Resultado " + r + ": el mínimo es mayor que el máximo.");
+                }
+                if (rd.min() < 0) {
+                    throw new IllegalArgumentException("Resultado " + r + ": el puntaje no puede ser negativo.");
                 }
                 if (vacio(rd.titulo())) {
                     throw new IllegalArgumentException("Resultado " + r + ": falta el título.");

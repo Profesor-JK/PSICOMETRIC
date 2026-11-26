@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Solo para el servidor de Azure mientras use HTTP. Quitalo cuando tengas HTTPS. -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">alejandro-martinez.northcentralus.cloudapp.azure.com</domain>
+    </domain-config>
+</network-security-config>

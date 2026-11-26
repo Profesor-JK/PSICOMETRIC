@@ -122,8 +122,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         // preferences.edit().clear().apply();
 
-        // Redirigir al usuario al Splash o Login
-        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+        new SessionManager(this).cerrar();
+
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 
         // Estas banderas limpian la pila de actividades para que MainActivity se destruya por completo
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

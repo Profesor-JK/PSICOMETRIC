@@ -20,7 +20,9 @@ public class SplashActivity extends AppCompatActivity {
 
         // Esperar 2.5 segundos y abrir MainActivity
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Class<?> destino = new SessionManager(this).haySesion()
+                    ? MainActivity.class : LoginActivity.class;
+            Intent intent = new Intent(SplashActivity.this, destino);
             startActivity(intent);
             finish(); // Cierra el Splash para que no se pueda regresar a él
         }, 2500);

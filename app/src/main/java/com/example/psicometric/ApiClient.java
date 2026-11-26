@@ -20,7 +20,7 @@ public class ApiClient {
 
     /** Servidor en Azure. Si activas HTTPS con certificado, cambia http:// por https://. */
     public static final String BASE_URL =
-            "http://alejandro-martinez.northcentralus.cloudapp.azure.com:8080";
+            "https://alejandro-martinez.northcentralus.cloudapp.azure.com";
 
     public interface Callback {
         void onSuccess(JSONObject data);
